@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-brand-bg: #FBF7F4;
+  --color-brand-coral: #E8836B;
+  --color-brand-text: #3D2B1F;
+  
+  --font-sans: 'Inter', -apple-system, 'PingFang SC', sans-serif;
+  --font-serif: 'Noto Serif SC', serif;
+}
+
+.yuya-sans {
+  font-family: var(--font-sans);
+}
+
+.crop-center {
+  object-fit: cover;
+  object-position: center 20%;
+}

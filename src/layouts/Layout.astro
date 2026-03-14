@@ -1,0 +1,55 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+	ogImage?: string;
+}
+
+const { title, description = '分享生活、思考与成长的个人空间。', ogImage } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title} | 施施小洛</title>
+        
+        <!-- SEO -->
+        <meta name="description" content={description}>
+        <meta name="author" content="施施小洛">
+        <link rel="canonical" href={`https://ssxl.me${Astro.url.pathname}`}>
+
+        <!-- Open Graph -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content={`https://ssxl.me${Astro.url.pathname}`}>
+        <meta property="og:title" content={`${title} | 施施小洛`}>
+        <meta property="og:description" content={description}>
+        <meta property="og:image" content={ogImage || 'https://ssxl.me/images/og-default.png'}>
+        <meta property="og:locale" content="zh_CN">
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content={`${title} | 施施小洛`}>
+        <meta name="twitter:description" content={description}>
+        <meta name="twitter:image" content={ogImage || 'https://ssxl.me/images/og-default.png'}>
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+	</head>
+	<body class="bg-brand-bg text-brand-text font-sans antialiased">
+        <Nav />
+		<slot />
+        <footer class="max-w-7xl mx-auto px-6 py-24 border-t border-stone-200 text-center">
+            <p class="text-stone-400 text-sm tracking-widest uppercase">© 2026 施施小洛 · ssxl.me</p>
+        </footer>
+	</body>
+</html>

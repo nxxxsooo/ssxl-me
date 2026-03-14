@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="关于我" description="施施小洛 (SSxL)，关系心理学创作者，分享思考与成长的个人空间。">
+    <main class="max-w-4xl mx-auto px-6 py-12 md:py-24">
+        <header class="flex flex-col md:grid md:grid-cols-2 gap-12 items-center mb-24">
+            <div class="aspect-[3/4] w-full overflow-hidden">
+                <img src="/images/portrait.jpg" alt="施施小洛肖像" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+            </div>
+            <div>
+                <h1 class="font-serif text-3xl md:text-5xl mb-6">施施小洛 (SSxL)</h1>
+                <p class="text-xl text-brand-coral mb-8 uppercase tracking-widest text-sm">关系心理学创作者</p>
+                <p class="text-stone-700 leading-relaxed mb-6 font-light text-lg">
+                    出版策划人，曾在《今古传奇》《悬疑世界》杂志工作，浦睿文化图书策划。
+                </p>
+                <p class="text-stone-700 leading-relaxed font-light text-lg">
+                    代表作：《桐花中路私立协济医院怪谈》(100万+销量), 《完美嫌疑人》。
+                </p>
+            </div>
+        </header>
+
+        <section class="prose prose-stone prose-lg max-w-none">
+            <h2 class="font-serif text-2xl md:text-3xl mb-6">探索关系，洞察自我</h2>
+            <p class="text-stone-700 leading-relaxed mb-6 font-light">
+                现在，我专注于关系心理学（relationship psychology）。用文字，解构复杂的关系。在这里记录思考，分享生活。
+            </p>
+            <p class="text-stone-700 leading-relaxed font-light">
+                在这里，我们一起探索情感的本质，寻找成长的路径。
+            </p>
+            <div class="mt-16 p-8 border border-stone-200 flex flex-col md:flex-row items-center gap-8">
+                <img src="/images/wechat-qr.jpg" alt="施施小洛公众号二维码" class="w-48 h-48 object-contain" />
+                <div>
+                    <h3 class="font-serif text-xl mb-2">扫码关注公众号</h3>
+                    <p class="text-stone-600">获取最新思考与深度解读，期待与你在这里建立连接。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+</Layout>

@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const allPosts = await getCollection('posts');
+const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout title="首页" description="分享生活、思考与成长的个人空间。">
+    <main class="max-w-7xl mx-auto px-6 py-12 md:py-24">
+        <!-- Hero Section -->
+        <header class="flex flex-col-reverse md:grid md:grid-cols-12 gap-12 items-center mb-32">
+            <div class="md:col-span-8">
+                <h1 class="font-serif text-4xl md:text-8xl font-light tracking-tight leading-none mb-8">
+                    施施<br/>小洛
+                </h1>
+                <p class="text-lg md:text-xl text-stone-600 max-w-lg leading-relaxed font-light">
+                    用文字，解构复杂的关系。在这里记录思考，分享生活。极简即是美学，留白方能呼吸。
+                </p>
+                <div class="mt-12">
+                    <a href="/about" class="inline-block border border-brand-text px-8 py-3 uppercase tracking-widest text-xs hover:bg-brand-coral hover:border-brand-coral hover:text-white transition-all duration-300">
+                        关于我
+                    </a>
+                </div>
+            </div>
+            <!-- Portrait Image with cropping -->
+            <div class="md:col-span-4 aspect-[3/4] w-full md:w-auto overflow-hidden">
+                <img src="/images/portrait.jpg" alt="施施小洛肖像" class="w-full h-full object-cover object-center grayscale contrast-125 hover:grayscale-0 transition-all duration-700">
+            </div>
+        </header>
+
+        <!-- Selected Works/Posts -->
+        <section id="articles">
+            <div class="flex items-center justify-between mb-16 border-b border-stone-200 pb-4">
+                <h2 class="font-serif text-2xl uppercase tracking-widest">精选文章</h2>
+                <span class="text-stone-400 text-sm">{new Date().getFullYear()}</span>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-x-12 gap-y-24">
+                {posts.map((post) => (
+                    <article class="group cursor-pointer">
+                        <a href={`/posts/${post.id}`}>
+                            <div class="aspect-[4/3] bg-stone-100 mb-6 overflow-hidden relative">
+                                <img src={post.data.cover} alt={post.data.title} loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <h3 class="font-serif text-2xl md:text-3xl mb-4 leading-snug">{post.data.title}</h3>
+                            <p class="text-stone-600 leading-relaxed mb-4">{post.data.description}</p>
+                            <span class="text-brand-coral uppercase tracking-widest text-xs font-bold hover:underline">阅读全文 →</span>
+                        </a>
+                    </article>
+                ))}
+            </div>
+        </section>
+    </main>
+</Layout>
