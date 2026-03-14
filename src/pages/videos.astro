@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const allVideos = await getCollection('videos');
+const videos = allVideos.sort((a, b) => {
+    if (a.data.pinned !== b.data.pinned) {
+        return a.data.pinned ? -1 : 1;
+    }
+    return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+});
+---
+
+<Layout title="视频" description="分享思考与生活点滴的视频空间。">
+    <main class="max-w-7xl mx-auto px-6 py-12 md:py-24">
+        <header class="mb-24">
+            <h1 class="font-serif text-4xl md:text-6xl font-light tracking-tight leading-none mb-12">视频</h1>
+            
+            <!-- Channel QR Card -->
+            <section class="p-8 bg-stone-50 border border-stone-200 flex flex-col md:flex-row items-center gap-8">
+                <img src="/images/channels-qr.jpg" alt="关注视频号" class="w-32 h-32 object-contain" width="128" height="128" />
+                <div class="text-center md:text-left">
+                    <h4 class="font-serif text-xl mb-2">关注视频号</h4>
+                    <p class="text-stone-600 leading-relaxed">获取更多视频更新，扫码关注施施小洛的视频号。</p>
+                </div>
+            </section>
+        </header>
+
+        <section id="videos">
+            <div class="flex items-center justify-between mb-16 border-b border-stone-200 pb-4">
+                <h2 class="font-serif text-2xl uppercase tracking-widest">精选视频</h2>
+                <span class="text-stone-400 text-sm">{new Date().getFullYear()}</span>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-x-12 gap-y-24">
+                {videos.map((video) => (
+                    <article class="group">
+                        <div class="aspect-video w-full bg-stone-100 mb-6 overflow-hidden">
+                            <iframe 
+                                src={`https://open.douyin.com/player/video?vid=${video.data.douyinId}&autoplay=0`}
+                                class="w-full h-full"
+                                allowfullscreen
+                                referrerpolicy="unsafe-url"
+                                title={video.data.title}
+                            ></iframe>
+                        </div>
+                        <h3 class="font-serif text-xl md:text-2xl mb-3 leading-snug">{video.data.title}</h3>
+                        <p class="text-stone-600 text-sm leading-relaxed">{video.data.description}</p>
+                    </article>
+                ))}
+            </div>
+        </section>
+    </main>
+</Layout>

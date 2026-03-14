@@ -12,4 +12,15 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { posts };
+const videos = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/videos' }),
+  schema: z.object({
+    title: z.string(),
+    douyinId: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    pinned: z.boolean(),
+  }),
+});
+
+export const collections = { posts, videos };
