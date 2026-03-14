@@ -32,16 +32,18 @@ const videos = allVideos.sort((a, b) => {
                 <span class="text-stone-400 text-sm">{new Date().getFullYear()}</span>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-x-4 md:gap-x-6 gap-y-12">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-10">
                 {videos.map((video) => (
                     <article class="group">
                         <div class="aspect-[9/16] w-full bg-stone-100 mb-4 overflow-hidden rounded-sm">
                             <iframe 
                                 src={`https://open.douyin.com/player/video?vid=${video.data.douyinId}&autoplay=0`}
-                                class="w-full h-full"
+                                class="w-full h-full border-0"
+                                scrolling="no"
                                 allowfullscreen
                                 referrerpolicy="unsafe-url"
                                 title={video.data.title}
+                                frameborder="0"
                             ></iframe>
                         </div>
                         <h3 class="font-serif text-base md:text-lg mb-2 leading-snug">{video.data.title}</h3>
