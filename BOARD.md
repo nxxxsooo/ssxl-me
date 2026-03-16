@@ -34,3 +34,11 @@
 - `feat` 17 篇 docx → markdown 转换
 - `feat` 4 种排版风格模板 (A/B/C/D) + 测试草稿推送
 - `feat` Style A refined 模板（去除 flex，生产可用）
+
+- `deploy` 重新推送 12 篇未发布的草稿 (1,3,7-10,12-17) 到公众号草稿箱 (使用 V2 字体封面)
+
+- `feat` 提取第二批 docx (18-29)，生成 V2 封面
+- `feat` 重构 format-articles.py 脚本：同时生成公众号 HTML 草稿 和 Astro 格式网站文章
+- `feat` 更新网站 global.css 引入第一批的 Style A 高级样式（引言卡片、序号角标、珊瑚色块等）
+- `deploy` 第二批 12 篇文章已推送微信公众号草稿箱（带 ssxl.me 网站原文链接）
+- `deploy` 网站代码推送到 GitHub，触发 Vercel 部署包含第二批文章的全新网站。
