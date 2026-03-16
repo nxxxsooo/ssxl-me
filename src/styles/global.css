@@ -271,6 +271,38 @@
   letter-spacing: 4px;
 }
 
+/* CTA Block - Multi-line call to action (Batch 2 style) */
+.ssxl-cta-block {
+  text-align: center;
+  margin: 40px 0 20px;
+  padding: 28px 24px;
+  background: var(--color-brand-stone-light);
+  border-radius: 10px;
+  border: 1px solid var(--color-brand-stone-border);
+}
+
+.ssxl-cta-line1 {
+  font-size: 15px;
+  color: #888;
+  margin: 0 0 10px !important;
+  letter-spacing: 0.5px;
+}
+
+.ssxl-cta-line2 {
+  font-size: 17px;
+  color: var(--color-brand-coral);
+  font-weight: 600;
+  margin: 0 0 10px !important;
+  letter-spacing: 0.5px;
+}
+
+.ssxl-cta-line3 {
+  font-size: 14px;
+  color: #B8A89E;
+  margin: 0 !important;
+  letter-spacing: 2px;
+}
+
 /* Text alignment overrides for markdown output */
 .ssxl-text-center {
   text-align: center !important;
