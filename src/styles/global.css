@@ -96,3 +96,195 @@
   font-weight: 500;
   margin: 0;
 }
+
+/* ====== NEW STYLE A COMPREHENSIVE CLASSES ====== */
+
+/* Lead Card - Intro paragraph highlight */
+.ssxl-lead-card {
+  background: linear-gradient(135deg, #FFF5F0 0%, #FBF7F4 100%);
+  border-radius: 12px;
+  padding: 26px 22px;
+  margin: 28px 0;
+  border: 1px solid #F5E6DD;
+  box-shadow: 0 2px 8px rgba(232, 131, 107, 0.06);
+}
+
+.ssxl-lead-card p {
+  margin: 0 0 18px !important;
+  line-height: 1.95;
+}
+
+.ssxl-lead-card p:last-child {
+  margin-bottom: 0 !important;
+}
+
+.ssxl-lead-card p:first-of-type {
+  font-size: 17px;
+  color: #3D2B1F;
+  font-weight: 600;
+}
+
+.ssxl-lead-card p:not(:first-of-type) {
+  font-size: 16px;
+  color: #5D4A3A;
+}
+
+/* Highlight Block - Coral gradient box */
+.ssxl-highlight-block {
+  background: linear-gradient(135deg, #E8836B 0%, #D46A52 100%);
+  border-radius: 10px;
+  padding: 22px 20px;
+  margin: 24px 0;
+  box-shadow: 0 3px 10px rgba(232, 131, 107, 0.15);
+}
+
+.ssxl-highlight-block p {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #fff !important;
+  margin: 0 !important;
+}
+
+/* Tip Block - Dashed coral border */
+.ssxl-tip-block {
+  background: #FFF5F0;
+  border: 1px dashed #E8836B;
+  border-radius: 8px;
+  padding: 18px;
+  margin: 24px 0;
+}
+
+.ssxl-tip-block p {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #C45C42 !important;
+  margin: 0 !important;
+  font-weight: 600;
+}
+
+/* Closing Card */
+.ssxl-closing-card {
+  background: linear-gradient(135deg, #FFF5F0 0%, #FBF7F4 100%);
+  border-radius: 12px;
+  padding: 26px 22px;
+  margin: 32px 0;
+  border: 1px solid #F5E6DD;
+  box-shadow: 0 2px 8px rgba(232, 131, 107, 0.06);
+}
+
+.ssxl-closing-card p {
+  margin: 0 0 18px !important;
+  font-size: 16px;
+  line-height: 1.95;
+}
+
+.ssxl-closing-card p:last-child {
+  margin-bottom: 0 !important;
+}
+
+.ssxl-closing-card p:first-of-type {
+  color: #3D2B1F;
+  font-weight: 600;
+}
+
+.ssxl-closing-card p:not(:first-of-type) {
+  color: #5D4A3A;
+}
+
+/* Final Card - Gradient */
+.ssxl-final-card {
+  background: linear-gradient(135deg, #E8836B 0%, #D46A52 100%);
+  border-radius: 12px;
+  padding: 26px 22px;
+  margin: 28px 0;
+  box-shadow: 0 4px 12px rgba(232, 131, 107, 0.2);
+}
+
+.ssxl-final-card p {
+  font-size: 16px;
+  line-height: 1.95;
+  color: #fff !important;
+  margin: 0 0 18px !important;
+}
+
+.ssxl-final-card p:last-child {
+  font-size: 18px;
+  line-height: 1.85;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.5px;
+  margin-bottom: 0 !important;
+}
+
+/* Section Header with Numbered Circle */
+.ssxl-section-header {
+  margin: 40px 0 28px;
+}
+
+.ssxl-section-header-inner {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.ssxl-section-badge {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: #E8836B;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 40px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.ssxl-section-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: #C45C42;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* Decorative Ornaments */
+.ssxl-ornament-top {
+  text-align: center;
+  margin: 28px 0;
+}
+
+.ssxl-ornament-top span {
+  color: #E8836B;
+  font-size: 18px;
+  letter-spacing: 8px;
+}
+
+.ssxl-ornament-bot {
+  text-align: center;
+  margin: 28px 0;
+}
+
+.ssxl-ornament-bot span {
+  color: #E8836B;
+  font-size: 14px;
+  letter-spacing: 4px;
+}
+
+/* Text alignment overrides for markdown output */
+.ssxl-text-center {
+  text-align: center !important;
+}
+.ssxl-text-left {
+  text-align: left !important;
+}
+
+/* Content block styling for lists inside blocks */
+.ssxl-content-block ul {
+  padding-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.ssxl-content-block li {
+  margin-bottom: 6px;
+}
