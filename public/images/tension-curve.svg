@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tensionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="35%" stop-color="#3B82F6"/>
+      <stop offset="75%" stop-color="#3B82F6"/>
+      <stop offset="90%" stop-color="#EF4444"/>
+      <stop offset="100%" stop-color="#DC2626"/>
+    </linearGradient>
+    <filter id="curveShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.12"/>
+    </filter>
+    <filter id="pointShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+    <filter id="boxShadow" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#FFFFFF"/>
+
+  <!-- Title -->
+  <text x="960" y="68" font-family="system-ui, -apple-system, PingFang SC, sans-serif" font-size="44" font-weight="bold" fill="#111827" text-anchor="middle">【宏观节奏：故事整体的张力心电图】</text>
+
+  <!-- Chart area: origin at (200, 110), chart 1500w x 650h -->
+  <!-- Shorter chart = more room below for labels -->
+  <g transform="translate(200, 110)">
+
+    <!-- Three-act background zones -->
+    <rect x="0" y="0" width="300" height="650" fill="#EFF6FF" opacity="0.55"/>
+    <rect x="300" y="0" width="825" height="650" fill="#FEF3C7" opacity="0.30"/>
+    <rect x="1125" y="0" width="375" height="650" fill="#FEE2E2" opacity="0.55"/>
+
+    <!-- Grid lines -->
+    <g stroke="#F0F0F0" stroke-width="1">
+      <line x1="0" y1="0" x2="1500" y2="0"/>
+      <line x1="0" y1="130" x2="1500" y2="130"/>
+      <line x1="0" y1="260" x2="1500" y2="260"/>
+      <line x1="0" y1="390" x2="1500" y2="390"/>
+      <line x1="0" y1="520" x2="1500" y2="520"/>
+      <line x1="300" y1="0" x2="300" y2="650"/>
+      <line x1="750" y1="0" x2="750" y2="650"/>
+      <line x1="1125" y1="0" x2="1125" y2="650"/>
+    </g>
+
+    <!-- Axes -->
+    <line x1="0" y1="650" x2="1520" y2="650" stroke="#1F2937" stroke-width="2.5"/>
+    <line x1="0" y1="-10" x2="0" y2="650" stroke="#1F2937" stroke-width="2.5"/>
+    <polygon points="1520,650 1510,644 1510,656" fill="#1F2937"/>
+    <polygon points="0,-10 -6,0 6,0" fill="#1F2937"/>
+
+    <!-- Y-axis label -->
+    <text x="-70" y="325" font-family="system-ui, PingFang SC, sans-serif" font-size="22" fill="#1F2937" transform="rotate(-90, -70, 325)" text-anchor="middle">紧张程度 ｜ 情节强度</text>
+
+    <!-- X-axis ticks: 0%, 20%, 50%, 75%, 100% -->
+    <g font-family="system-ui, PingFang SC, sans-serif" font-size="18" fill="#6B7280" text-anchor="middle">
+      <line x1="0" y1="650" x2="0" y2="662" stroke="#9CA3AF" stroke-width="1.5"/>
+      <text x="0" y="685">0%</text>
+      <line x1="300" y1="650" x2="300" y2="662" stroke="#9CA3AF" stroke-width="1.5"/>
+      <text x="300" y="685">20%</text>
+      <line x1="750" y1="650" x2="750" y2="662" stroke="#9CA3AF" stroke-width="1.5"/>
+      <text x="750" y="685">50%</text>
+      <line x1="1125" y1="650" x2="1125" y2="662" stroke="#9CA3AF" stroke-width="1.5"/>
+      <text x="1125" y="685">75%</text>
+      <line x1="1500" y1="650" x2="1500" y2="662" stroke="#9CA3AF" stroke-width="1.5"/>
+      <text x="1500" y="685">100%</text>
+    </g>
+
+    <!-- Section labels (well below ticks) -->
+    <g font-family="system-ui, PingFang SC, sans-serif" font-size="26" font-weight="bold" fill="#374151">
+      <text x="150" y="725" text-anchor="middle">开头</text>
+      <text x="712" y="725" text-anchor="middle">中段</text>
+      <text x="1312" y="725" text-anchor="middle">结尾</text>
+    </g>
+
+    <!-- X-axis subtitle -->
+    <text x="750" y="760" font-family="system-ui, PingFang SC, sans-serif" font-size="18" fill="#9CA3AF" text-anchor="middle">故事主线 →</text>
+
+    <!-- Turning Point 1 at 20% — label INSIDE chart top area -->
+    <line x1="300" y1="-10" x2="300" y2="660" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4"/>
+    <rect x="216" y="4" width="168" height="56" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1" rx="6" opacity="0.92"/>
+    <text x="300" y="28" font-family="system-ui, PingFang SC, sans-serif" font-size="17" font-weight="bold" fill="#6D28D9" text-anchor="middle">转折点① 20%</text>
+    <text x="300" y="50" font-family="system-ui, PingFang SC, sans-serif" font-size="15" fill="#7C3AED" text-anchor="middle">☆ 无法折返</text>
+
+    <!-- Turning Point 2 at 75% — label INSIDE chart top area -->
+    <line x1="1125" y1="-10" x2="1125" y2="660" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4"/>
+    <rect x="1041" y="4" width="168" height="56" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1" rx="6" opacity="0.92"/>
+    <text x="1125" y="28" font-family="system-ui, PingFang SC, sans-serif" font-size="17" font-weight="bold" fill="#6D28D9" text-anchor="middle">转折点② 75%</text>
+    <text x="1125" y="50" font-family="system-ui, PingFang SC, sans-serif" font-size="15" fill="#7C3AED" text-anchor="middle">☆ 导向结尾</text>
+
+    <!-- ========== TENSION CURVE ========== -->
+    <path d="
+      M 0,582
+      L 150,496
+      L 225,539
+      L 300,462
+      L 450,325
+      L 525,411
+      L 600,280
+      L 675,360
+      L 750,160
+      L 825,300
+      L 900,240
+      L 1000,550
+      L 1125,350
+      L 1200,154
+      L 1310,34
+      L 1400,188
+      L 1500,325
+    " fill="none" stroke="url(#tensionGradient)" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" filter="url(#curveShadow)"/>
+
+    <!-- ========== DATA POINT MARKERS ========== -->
+    <g filter="url(#pointShadow)">
+      <!-- Red triangles at PEAKS (setbacks) — 20px base -->
+      <polygon points="150,486 139,508 161,508" fill="#DC2626" stroke="#B91C1C" stroke-width="1.5"/>
+      <polygon points="450,315 439,337 461,337" fill="#DC2626" stroke="#B91C1C" stroke-width="1.5"/>
+      <polygon points="600,270 589,292 611,292" fill="#DC2626" stroke="#B91C1C" stroke-width="1.5"/>
+      <polygon points="750,150 739,172 761,172" fill="#DC2626" stroke="#B91C1C" stroke-width="1.5"/>
+      <polygon points="900,230 889,252 911,252" fill="#DC2626" stroke="#B91C1C" stroke-width="1.5"/>
+      <!-- Climax triangle — larger 26px base -->
+      <polygon points="1310,20 1296,48 1324,48" fill="#DC2626" stroke="#B91C1C" stroke-width="2"/>
+
+      <!-- Blue circles at VALLEYS (advancing) — radius 10 -->
+      <circle cx="225" cy="539" r="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5"/>
+      <circle cx="525" cy="411" r="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5"/>
+      <circle cx="675" cy="360" r="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5"/>
+      <circle cx="825" cy="300" r="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5"/>
+      <circle cx="1000" cy="550" r="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5"/>
+      <circle cx="1200" cy="154" r="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5"/>
+      <circle cx="1400" cy="188" r="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5"/>
+
+      <!-- Climax glow ring -->
+      <circle cx="1310" cy="34" r="24" fill="none" stroke="#DC2626" stroke-width="2" opacity="0.25"/>
+    </g>
+
+    <!-- ========== ANNOTATIONS ========== -->
+    <!-- 中点高峰 label at 50% -->
+    <rect x="668" y="116" width="164" height="32" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1" rx="6" opacity="0.92"/>
+    <text x="750" y="139" font-family="system-ui, PingFang SC, sans-serif" font-size="17" font-weight="bold" fill="#1E40AF" text-anchor="middle">中点：第二幕高峰</text>
+
+    <!-- "一无所有时刻" -->
+    <rect x="910" y="556" width="180" height="34" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1" rx="6" opacity="0.92"/>
+    <text x="1000" y="580" font-family="system-ui, PingFang SC, sans-serif" font-size="18" font-weight="bold" fill="#92400E" text-anchor="middle">一无所有时刻</text>
+
+    <!-- 高潮 label -->
+    <rect x="1345" y="6" width="148" height="60" fill="#FEF2F2" stroke="#FECACA" stroke-width="1" rx="8" filter="url(#boxShadow)"/>
+    <text x="1419" y="32" font-family="system-ui, PingFang SC, sans-serif" font-size="22" font-weight="bold" fill="#DC2626" text-anchor="middle">▲ 高潮</text>
+    <text x="1419" y="56" font-family="system-ui, PingFang SC, sans-serif" font-size="17" fill="#DC2626" text-anchor="middle">冲击结尾</text>
+    <!-- Arrow -->
+    <line x1="1345" y1="36" x2="1330" y2="36" stroke="#DC2626" stroke-width="1.5"/>
+    <polygon points="1330,36 1338,32 1338,40" fill="#DC2626"/>
+
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- BOTTOM: Legend (left) + Info Box (right) — LARGE TEXT         -->
+  <!-- ============================================================ -->
+
+  <!-- Legend -->
+  <g transform="translate(200, 905)">
+    <rect x="-15" y="-28" width="580" height="70" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1" rx="10" filter="url(#boxShadow)"/>
+    <text x="8" y="6" font-family="system-ui, PingFang SC, sans-serif" font-size="22" font-weight="bold" fill="#1F2937">图例</text>
+    <polygon points="90,-4 78,18 102,18" fill="#DC2626" stroke="#B91C1C" stroke-width="1.5"/>
+    <text x="114" y="16" font-family="system-ui, PingFang SC, sans-serif" font-size="20" fill="#374151">挫折、阻碍、问题</text>
+    <circle cx="350" cy="6" r="9" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5"/>
+    <text x="370" y="16" font-family="system-ui, PingFang SC, sans-serif" font-size="20" fill="#374151">推进动作场景</text>
+  </g>
+
+  <!-- Info Box -->
+  <g transform="translate(1080, 905)">
+    <rect x="-15" y="-28" width="650" height="70" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1" rx="10" filter="url(#boxShadow)"/>
+    <text x="8" y="2" font-family="system-ui, PingFang SC, sans-serif" font-size="22" font-weight="bold" fill="#1F2937">理想张力曲线特征</text>
+    <text x="8" y="30" font-family="system-ui, PingFang SC, sans-serif" font-size="18" fill="#4B5563">① 明确上升趋势　② 丰富起伏变化　③ 高峰在 75-85%　④ 适当回落坡度</text>
+  </g>
+
+  <!-- Branding -->
+  <text x="1880" y="1065" font-family="system-ui, sans-serif" font-size="14" fill="#D1D5DB" text-anchor="end">© 施施小洛 ssxl.me</text>
+</svg>
