@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 3840 2160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tensionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E8836B"/>
+      <stop offset="35%" stop-color="#E8836B"/>
+      <stop offset="75%" stop-color="#E8836B"/>
+      <stop offset="90%" stop-color="#8B4A3D"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+    <filter id="curveShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+    <filter id="pointShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="2" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Clean white background -->
+  <rect width="3840" height="2160" fill="#FFFFFF"/>
+  
+  <!-- Main chart area -->
+  <g transform="translate(400, 300)">
+    
+    <!-- Three-act background zones -->
+    <rect x="0" y="0" width="600" height="1300" fill="rgba(232, 131, 107, 0.06)"/>
+    <rect x="600" y="0" width="1650" height="1300" fill="rgba(232, 131, 107, 0.08)"/>
+    <rect x="2250" y="0" width="750" height="1300" fill="rgba(232, 131, 107, 0.06)"/>
+    
+    <!-- Grid lines -->
+    <g stroke="rgba(61, 43, 31, 0.08)" stroke-width="2">
+      <line x1="0" y1="0" x2="3000" y2="0"/>
+      <line x1="0" y1="260" x2="3000" y2="260"/>
+      <line x1="0" y1="520" x2="3000" y2="520"/>
+      <line x1="0" y1="780" x2="3000" y2="780"/>
+      <line x1="0" y1="1040" x2="3000" y2="1040"/>
+      <line x1="600" y1="0" x2="600" y2="1300"/>
+      <line x1="1500" y1="0" x2="1500" y2="1300"/>
+      <line x1="2250" y1="0" x2="2250" y2="1300"/>
+    </g>
+    
+    <!-- Axes -->
+    <line x1="0" y1="1300" x2="3040" y2="1300" stroke="#3D2B1F" stroke-width="4"/>
+    <line x1="0" y1="-20" x2="0" y2="1300" stroke="#3D2B1F" stroke-width="4"/>
+    <polygon points="3040,1300 3020,1288 3020,1312" fill="#3D2B1F"/>
+    <polygon points="0,-20 -12,0 12,0" fill="#3D2B1F"/>
+    
+    <!-- Y-axis label -->
+    <text x="-140" y="650" font-family="'Noto Serif SC', serif" font-size="44" fill="#3D2B1F" transform="rotate(-90, -140, 650)" text-anchor="middle" letter-spacing="0.02em">紧张程度 ｜ 情节强度</text>
+    
+    <!-- X-axis ticks -->
+    <g font-family="'Noto Serif SC', serif" font-size="36" fill="#3D2B1F" text-anchor="middle" letter-spacing="0.02em">
+      <line x1="0" y1="1300" x2="0" y2="1324" stroke="#3D2B1F" stroke-width="3"/>
+      <text x="0" y="1370">0%</text>
+      <line x1="600" y1="1300" x2="600" y2="1324" stroke="#3D2B1F" stroke-width="3"/>
+      <text x="600" y="1370">20%</text>
+      <line x1="1500" y1="1300" x2="1500" y2="1324" stroke="#3D2B1F" stroke-width="3"/>
+      <text x="1500" y="1370">50%</text>
+      <line x1="2250" y1="1300" x2="2250" y2="1324" stroke="#3D2B1F" stroke-width="3"/>
+      <text x="2250" y="1370">75%</text>
+      <line x1="3000" y1="1300" x2="3000" y2="1324" stroke="#3D2B1F" stroke-width="3"/>
+      <text x="3000" y="1370">100%</text>
+    </g>
+    
+    <!-- Section labels -->
+    <g font-family="'Noto Serif SC', serif" font-size="52" font-weight="400" fill="#3D2B1F" letter-spacing="0.03em">
+      <text x="300" y="1450" text-anchor="middle">第一幕</text>
+      <text x="1425" y="1450" text-anchor="middle">第二幕</text>
+      <text x="2625" y="1450" text-anchor="middle">第三幕</text>
+    </g>
+    
+    <!-- X-axis subtitle -->
+    <text x="1500" y="1520" font-family="'Noto Serif SC', serif" font-size="36" fill="#3D2B1F" text-anchor="middle" opacity="0.7" letter-spacing="0.02em">故事主线 →</text>
+    
+    <!-- Turning Point 1 at 20% -->
+    <line x1="600" y1="-20" x2="600" y2="1320" stroke="#E8836B" stroke-width="3" stroke-dasharray="12,8"/>
+    <rect x="432" y="8" width="336" height="112" fill="#FBF7F4" stroke="#E8836B" stroke-width="2" rx="12" opacity="0.95"/>
+    <text x="600" y="56" font-family="'Noto Serif SC', serif" font-size="34" font-weight="400" fill="#3D2B1F" text-anchor="middle" letter-spacing="0.01em">转折点① 20%</text>
+    <text x="600" y="100" font-family="'Noto Serif SC', serif" font-size="30" fill="#E8836B" text-anchor="middle" letter-spacing="0.01em">☆ 无法折返</text>
+    
+    <!-- Turning Point 2 at 75% -->
+    <line x1="2250" y1="-20" x2="2250" y2="1320" stroke="#E8836B" stroke-width="3" stroke-dasharray="12,8"/>
+    <rect x="2082" y="8" width="336" height="112" fill="#FBF7F4" stroke="#E8836B" stroke-width="2" rx="12" opacity="0.95"/>
+    <text x="2250" y="56" font-family="'Noto Serif SC', serif" font-size="34" font-weight="400" fill="#3D2B1F" text-anchor="middle" letter-spacing="0.01em">转折点② 75%</text>
+    <text x="2250" y="100" font-family="'Noto Serif SC', serif" font-size="30" fill="#E8836B" text-anchor="middle" letter-spacing="0.01em">☆ 导向结尾</text>
+    
+    <!-- ========== SMOOTH TENSION CURVE (scaled 2x) ========== -->
+    <path d="M 0,1164 C -37.5,1161.166666666667 37.5,1158.833333333333 300,992 C 262.5,999.166666666667 337.5,984.833333333333 450,1078 C 425,1083.666666666667 475,1072.333333333333 600,924 C 562.5,959.666666666667 637.5,888.333333333333 900,650 C 862.5,658.5 937.5,641.5 1050,822 C 1025,829.5 1075,814.5 1200,560 C 1175,568.5 1225,551.5 1350,720 C 1325,740 1375,700 1500,320 C 1475,330 1525,310 1650,600 C 1625,586.666666666667 1675,613.333333333333 1800,480 C 1770.833333333333,438.333333333333 1829.166666666667,521.666666666667 2000,1100 C 1962.5,1081.666666666667 2037.5,1118.333333333333 2250,700 C 2216.666666666667,766 2283.333333333333,634 2400,308 C 2369.166666666667,360.666666666667 2430.833333333333,255.333333333333 2620,68 C 2586.666666666667,62.333333333333 2653.333333333333,73.666666666667 2800,376 C 2768.333333333333,327.5 2831.666666666667,424.5 3000,650" fill="none" stroke="url(#tensionGradient)" stroke-width="10" stroke-linejoin="round" stroke-linecap="round" filter="url(#curveShadow)"/>
+    
+    <!-- ========== DATA POINT MARKERS (scaled 2x) ========== -->
+    <g filter="url(#pointShadow)">
+      <!-- Red triangles at PEAKS -->
+      <polygon points="300,972 278,1016 322,1016" fill="#E8836B" stroke="#E8836B" stroke-width="3"/>
+      <polygon points="900,630 878,674 922,674" fill="#E8836B" stroke="#E8836B" stroke-width="3"/>
+      <polygon points="1200,540 1178,584 1222,584" fill="#E8836B" stroke="#E8836B" stroke-width="3"/>
+      <polygon points="1500,300 1478,344 1522,344" fill="#E8836B" stroke="#E8836B" stroke-width="3"/>
+      <polygon points="1800,460 1778,504 1822,504" fill="#E8836B" stroke="#E8836B" stroke-width="3"/>
+      <!-- Climax triangle — larger -->
+      <polygon points="2620,40 2592,96 2648,96" fill="#E8836B" stroke="#E8836B" stroke-width="4"/>
+      <!-- Blue circles at VALLEYS -->
+      <circle cx="450" cy="1078" r="20" fill="#3D2B1F" stroke="#3D2B1F" stroke-width="3"/>
+      <circle cx="1050" cy="822" r="20" fill="#3D2B1F" stroke="#3D2B1F" stroke-width="3"/>
+      <circle cx="1350" cy="720" r="20" fill="#3D2B1F" stroke="#3D2B1F" stroke-width="3"/>
+      <circle cx="1650" cy="600" r="20" fill="#3D2B1F" stroke="#3D2B1F" stroke-width="3"/>
+      <circle cx="2000" cy="1100" r="20" fill="#3D2B1F" stroke="#3D2B1F" stroke-width="3"/>
+      <circle cx="2400" cy="308" r="20" fill="#3D2B1F" stroke="#3D2B1F" stroke-width="3"/>
+      <circle cx="2800" cy="376" r="20" fill="#3D2B1F" stroke="#3D2B1F" stroke-width="3"/>
+      <!-- Climax glow ring -->
+      <circle cx="2620" cy="68" r="48" fill="none" stroke="#E8836B" stroke-width="4" opacity="0.3"/>
+    </g>
+    
+    <!-- Annotations -->
+    <rect x="1336" y="232" width="328" height="64" fill="#FBF7F4" stroke="#E8836B" stroke-width="2" rx="12" opacity="0.95"/>
+    <text x="1500" y="278" font-family="'Noto Serif SC', serif" font-size="34" font-weight="400" fill="#3D2B1F" text-anchor="middle" letter-spacing="0.01em">中点：第二幕高峰</text>
+    
+    <rect x="1820" y="1112" width="360" height="68" fill="#FBF7F4" stroke="#E8836B" stroke-width="2" rx="12" opacity="0.95"/>
+    <text x="2000" y="1160" font-family="'Noto Serif SC', serif" font-size="36" font-weight="400" fill="#3D2B1F" text-anchor="middle" letter-spacing="0.01em">一无所有时刻</text>
+    
+    <rect x="2690" y="12" width="296" height="120" fill="#FBF7F4" stroke="#E8836B" stroke-width="2" rx="16" filter="url(#pointShadow)"/>
+    <text x="2838" y="64" font-family="'Noto Serif SC', serif" font-size="44" font-weight="400" fill="#E8836B" text-anchor="middle" letter-spacing="0.02em">▲ 高潮</text>
+    <text x="2838" y="112" font-family="'Noto Serif SC', serif" font-size="34" fill="#E8836B" text-anchor="middle" letter-spacing="0.01em">冲击结尾</text>
+    <line x1="2690" y1="72" x2="2660" y2="72" stroke="#E8836B" stroke-width="3"/>
+    <polygon points="2660,72 2676,64 2676,80" fill="#E8836B"/>
+  </g>
+  
+  <!-- Legend -->
+  <g transform="translate(400, 1810)">
+    <rect x="-30" y="-56" width="1160" height="140" fill="#FBF7F4" stroke="#E8836B" stroke-width="2" rx="20"/>
+    <text x="16" y="-12" font-family="'Noto Serif SC', serif" font-size="44" font-weight="400" fill="#3D2B1F" letter-spacing="0.02em">图例</text>
+    <polygon points="180,-8 156,36 204,36" fill="#E8836B" stroke="#E8836B" stroke-width="3"/>
+    <text x="228" y="32" font-family="'Noto Serif SC', serif" font-size="40" fill="#3D2B1F" letter-spacing="0.01em">挫折、阻碍、问题</text>
+    <circle cx="700" cy="12" r="18" fill="#3D2B1F" stroke="#3D2B1F" stroke-width="3"/>
+    <text x="740" y="32" font-family="'Noto Serif SC', serif" font-size="40" fill="#3D2B1F" letter-spacing="0.01em">推进动作场景</text>
+  </g>
+  
+  <!-- Branding -->
+  <text x="3760" y="2100" font-family="'Noto Serif SC', serif" font-size="28" fill="#3D2B1F" opacity="0.5" text-anchor="end" letter-spacing="0.02em">© 施施小洛 ssxl.me</text>
+</svg>
