@@ -1,10 +1,11 @@
 // Vercel Serverless Function — proxies form submission to Feishu Bitable
 // Keeps app_secret server-side and avoids CORS issues
 
-const FEISHU_APP_ID = 'cli_a92bdde2543a9bce';
-const FEISHU_APP_SECRET = 'db4GpQjt1eTOH8zythLfadooKqOuHFp7';
-const BITABLE_APP_TOKEN = 'XOVYbguNXaQPwsst7jQcyHr5nzy';
-const BITABLE_TABLE_ID = 'tblybvFx5LSxXkZA';
+const FEISHU_APP_ID = process.env.FEISHU_APP_ID || 'cli_a92bdde2543a9bce';
+const FEISHU_APP_SECRET = process.env.FEISHU_APP_SECRET || 'db4GpQjt1eTOH8zythLfadooKqOuHFp7';
+const BITABLE_APP_TOKEN = process.env.FEISHU_BITABLE_APP_TOKEN || 'XOVYbguNXaQPwsst7jQcyHr5nzy';
+const BITABLE_TABLE_ID = process.env.FEISHU_BITABLE_TABLE_ID || 'tblybvFx5LSxXkZA';
+const NOTIFY_OPEN_ID = 'ou_fe7b2ad06b228d5007f1d82cb75ee176';
 
 export default async function handler(req, res) {
   // Only allow POST
@@ -66,9 +67,41 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: '提交失败，请稍后重试' });
     }
 
+    // Step 3: Send Feishu notification to owner (fire-and-forget, don't block response)
+    sendNotification(tokenData.tenant_access_token, { name, contact, service, budget, description }).catch(
+      (err) => console.error('Notification error (non-blocking):', err)
+    );
+
     return res.status(200).json({ success: true });
   } catch (err) {
     console.error('Consult API error:', err);
     return res.status(500).json({ error: '服务异常，请直接添加微信联系' });
   }
+}
+
+async function sendNotification(token, data) {
+  const lines = [
+    '📩 ssxl.me 新咨询预约',
+    '',
+    `👤 ${data.name}`,
+    `📱 ${data.contact}`,
+    data.service ? `📋 ${data.service}` : '',
+    data.budget ? `💰 ${data.budget}` : '',
+    data.description ? `📝 ${data.description}` : '',
+    '',
+    '👉 https://mingjian.feishu.cn/base/XOVYbguNXaQPwsst7jQcyHr5nzy',
+  ].filter(Boolean).join('\n');
+
+  await fetch('https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=open_id', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      receive_id: NOTIFY_OPEN_ID,
+      msg_type: 'text',
+      content: JSON.stringify({ text: lines }),
+    }),
+  });
 }
