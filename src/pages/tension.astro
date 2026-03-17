@@ -2,26 +2,52 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="故事张力心电图" description="理想故事的宏观节奏——三幕结构张力曲线可视化工具">
-  <main class="max-w-7xl mx-auto px-6 py-12 md:py-24">
+  <Layout title="故事张力心电图" description="理想故事的宏观节奏——三幕结构张力曲线可视化工具">
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    
+    /* Add subtle pulse animation to climax point */
+    @keyframes pulse {
+      0% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+      100% { opacity: 0.6; transform: scale(1); }
+    }
+    
+    .climax-pulse {
+      animation: pulse 2s infinite ease-in-out;
+    }
+  </style>
+  <main class="max-w-7xl mx-auto px-4 md:px-6 pt-8 pb-16 md:pt-16 md:pb-24">
 
     <!-- Header -->
     <header class="text-center mb-12">
-      <h1 class="font-serif text-3xl md:text-5xl font-light tracking-tight mb-4">故事张力心电图</h1>
-      <p class="text-stone-500 text-lg max-w-2xl mx-auto leading-relaxed">三幕结构下的理想叙事张力曲线——可视化你的故事节奏</p>
+      <h1 class="font-serif text-3xl md:text-5xl font-light tracking-wider mb-6">故事张力心电图</h1>
+      <p class="text-stone-600 text-lg max-w-3xl mx-auto leading-relaxed font-light">三幕结构下的理想叙事张力曲线——可视化你的故事节奏</p>
     </header>
 
     <!-- Chart Container -->
-    <div class="relative w-full overflow-x-auto" id="chart-container">
+    <div class="relative w-full overflow-x-auto rounded-xl border border-[#F2E9E4]" id="chart-container">
       <div class="min-w-[800px]">
         <svg id="tension-chart" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto" preserveAspectRatio="xMidYMid meet">
           <defs>
             <linearGradient id="tensionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#10B981"/>
-              <stop offset="35%" stop-color="#3B82F6"/>
-              <stop offset="75%" stop-color="#3B82F6"/>
-              <stop offset="90%" stop-color="#EF4444"/>
-              <stop offset="100%" stop-color="#DC2626"/>
+              <stop offset="0%" stop-color="#E8836B"/>
+              <stop offset="35%" stop-color="#E8836B"/>
+              <stop offset="75%" stop-color="#E8836B"/>
+              <stop offset="90%" stop-color="#8B4A3D"/>
+              <stop offset="100%" stop-color="#6D28D9"/>
             </linearGradient>
             <filter id="curveShadow" x="-5%" y="-5%" width="110%" height="110%">
               <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.12"/>
@@ -34,22 +60,39 @@ import Layout from '../layouts/Layout.astro';
             </filter>
           </defs>
 
-          <!-- Background -->
-          <rect width="1920" height="1080" fill="#FFFFFF"/>
+          <!-- Background with subtle brand texture -->
+          <defs>
+            <style>
+              <![CDATA[
+                .brand-bg { fill: var(--color-brand-bg, #FBF7F4); }
+                .brand-text { fill: var(--color-brand-text, #3D2B1F); }
+                .brand-coral { fill: var(--color-brand-coral, #E8836B); stroke: var(--color-brand-coral, #E8836B); }
+              ]]>
+            </style>
+            <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(251, 247, 244, 0.3)" stroke-width="0.5"/>
+            </pattern>
+            <pattern id="mediumGrid" width="100" height="100" patternUnits="userSpaceOnUse">
+              <rect width="100" height="100" fill="url(#smallGrid)"/>
+              <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(251, 247, 244, 0.5)" stroke-width="1"/>
+            </pattern>
+          </defs>
+          
+          <rect width="1920" height="1080" fill="url(#mediumGrid)"/>
 
           <!-- Title -->
-          <text x="960" y="68" font-family="'Noto Serif SC', serif" font-size="44" font-weight="bold" fill="#111827" text-anchor="middle">【宏观节奏：故事整体的张力心电图】</text>
+          <text x="960" y="68" font-family="'Noto Serif SC', serif" font-size="44" font-weight="300" fill="var(--color-brand-text, #3D2B1F)" text-anchor="middle" letter-spacing="0.02em">【宏观节奏：故事整体的张力心电图】</text>
 
           <!-- Chart area: origin at (200, 110), chart 1500w x 650h -->
           <g transform="translate(200, 110)">
 
             <!-- Three-act background zones (interactive) -->
-            <rect class="act-zone" data-act="1" x="0" y="0" width="300" height="650" fill="#EFF6FF" opacity="0.55" style="cursor:pointer"/>
-            <rect class="act-zone" data-act="2" x="300" y="0" width="825" height="650" fill="#FEF3C7" opacity="0.30" style="cursor:pointer"/>
-            <rect class="act-zone" data-act="3" x="1125" y="0" width="375" height="650" fill="#FEE2E2" opacity="0.55" style="cursor:pointer"/>
+            <rect class="act-zone" data-act="1" x="0" y="0" width="300" height="650" fill="rgba(232, 131, 107, 0.08)" opacity="0.55" style="cursor:pointer"/>
+            <rect class="act-zone" data-act="2" x="300" y="0" width="825" height="650" fill="rgba(232, 131, 107, 0.15)" opacity="0.30" style="cursor:pointer"/>
+            <rect class="act-zone" data-act="3" x="1125" y="0" width="375" height="650" fill="rgba(232, 131, 107, 0.10)" opacity="0.55" style="cursor:pointer"/>
 
             <!-- Grid lines -->
-            <g stroke="#F0F0F0" stroke-width="1">
+            <g stroke="rgba(61, 43, 31, 0.1)" stroke-width="1">
               <line x1="0" y1="0" x2="1500" y2="0"/>
               <line x1="0" y1="130" x2="1500" y2="130"/>
               <line x1="0" y1="260" x2="1500" y2="260"/>
@@ -61,75 +104,75 @@ import Layout from '../layouts/Layout.astro';
             </g>
 
             <!-- Axes -->
-            <line x1="0" y1="650" x2="1520" y2="650" stroke="#1F2937" stroke-width="2.5"/>
-            <line x1="0" y1="-10" x2="0" y2="650" stroke="#1F2937" stroke-width="2.5"/>
-            <polygon points="1520,650 1510,644 1510,656" fill="#1F2937"/>
-            <polygon points="0,-10 -6,0 6,0" fill="#1F2937"/>
+            <line x1="0" y1="650" x2="1520" y2="650" stroke="var(--color-brand-text, #3D2B1F)" stroke-width="2.5"/>
+            <line x1="0" y1="-10" x2="0" y2="650" stroke="var(--color-brand-text, #3D2B1F)" stroke-width="2.5"/>
+            <polygon points="1520,650 1510,644 1510,656" fill="var(--color-brand-text, #3D2B1F)"/>
+            <polygon points="0,-10 -6,0 6,0" fill="var(--color-brand-text, #3D2B1F)"/>
 
             <!-- Y-axis label -->
-            <text x="-70" y="325" font-family="'Inter', sans-serif" font-size="22" fill="#1F2937" transform="rotate(-90, -70, 325)" text-anchor="middle">紧张程度 ｜ 情节强度</text>
+            <text x="-70" y="325" font-family="'Noto Serif SC', serif" font-size="22" fill="var(--color-brand-text, #3D2B1F)" transform="rotate(-90, -70, 325)" text-anchor="middle" letter-spacing="0.01em">紧张程度 ｜ 情节强度</text>
 
             <!-- X-axis ticks -->
-            <g font-family="'Inter', sans-serif" font-size="18" fill="#6B7280" text-anchor="middle">
-              <line x1="0" y1="650" x2="0" y2="662" stroke="#9CA3AF" stroke-width="1.5"/>
+            <g font-family="'Noto Serif SC', serif" font-size="18" fill="var(--color-brand-text, #3D2B1F)" text-anchor="middle" letter-spacing="0.02em">
+              <line x1="0" y1="650" x2="0" y2="662" stroke="var(--color-brand-text, #3D2B1F)" opacity="0.4" stroke-width="1.5"/>
               <text x="0" y="685">0%</text>
-              <line x1="300" y1="650" x2="300" y2="662" stroke="#9CA3AF" stroke-width="1.5"/>
+              <line x1="300" y1="650" x2="300" y2="662" stroke="var(--color-brand-text, #3D2B1F)" opacity="0.4" stroke-width="1.5"/>
               <text x="300" y="685">20%</text>
-              <line x1="750" y1="650" x2="750" y2="662" stroke="#9CA3AF" stroke-width="1.5"/>
+              <line x1="750" y1="650" x2="750" y2="662" stroke="var(--color-brand-text, #3D2B1F)" opacity="0.4" stroke-width="1.5"/>
               <text x="750" y="685">50%</text>
-              <line x1="1125" y1="650" x2="1125" y2="662" stroke="#9CA3AF" stroke-width="1.5"/>
+              <line x1="1125" y1="650" x2="1125" y2="662" stroke="var(--color-brand-text, #3D2B1F)" opacity="0.4" stroke-width="1.5"/>
               <text x="1125" y="685">75%</text>
-              <line x1="1500" y1="650" x2="1500" y2="662" stroke="#9CA3AF" stroke-width="1.5"/>
+              <line x1="1500" y1="650" x2="1500" y2="662" stroke="var(--color-brand-text, #3D2B1F)" opacity="0.4" stroke-width="1.5"/>
               <text x="1500" y="685">100%</text>
             </g>
 
             <!-- Section labels -->
-            <g font-family="'Noto Serif SC', serif" font-size="26" font-weight="bold" fill="#374151">
+            <g font-family="'Noto Serif SC', serif" font-size="26" font-weight="400" fill="var(--color-brand-text, #3D2B1F)" letter-spacing="0.03em">
               <text x="150" y="725" text-anchor="middle">开头</text>
               <text x="712" y="725" text-anchor="middle">中段</text>
               <text x="1312" y="725" text-anchor="middle">结尾</text>
             </g>
 
             <!-- X-axis subtitle -->
-            <text x="750" y="760" font-family="'Inter', sans-serif" font-size="18" fill="#9CA3AF" text-anchor="middle">故事主线 →</text>
+            <text x="750" y="760" font-family="'Noto Serif SC', serif" font-size="18" fill="var(--color-brand-text, #3D2B1F)" text-anchor="middle" opacity="0.7" letter-spacing="0.02em">故事主线 →</text>
 
             <!-- Turning Point 1 at 20% -->
-            <line x1="300" y1="-10" x2="300" y2="660" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4"/>
-            <rect x="216" y="4" width="168" height="56" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1" rx="6" opacity="0.92"/>
-            <text x="300" y="28" font-family="'Noto Serif SC', serif" font-size="17" font-weight="bold" fill="#6D28D9" text-anchor="middle">转折点① 20%</text>
-            <text x="300" y="50" font-family="'Inter', sans-serif" font-size="15" fill="#7C3AED" text-anchor="middle">☆ 无法折返</text>
+            <line x1="300" y1="-10" x2="300" y2="660" stroke="var(--color-brand-coral, #E8836B)" stroke-width="2" stroke-dasharray="6,4"/>
+            <rect x="216" y="4" width="168" height="56" fill="var(--color-brand-bg, #FBF7F4)" stroke="var(--color-brand-coral, #E8836B)" stroke-width="1" rx="6" opacity="0.92"/>
+            <text x="300" y="28" font-family="'Noto Serif SC', serif" font-size="17" font-weight="400" fill="var(--color-brand-text, #3D2B1F)" text-anchor="middle" letter-spacing="0.01em">转折点① 20%</text>
+            <text x="300" y="50" font-family="'Noto Serif SC', serif" font-size="15" fill="var(--color-brand-coral, #E8836B)" text-anchor="middle" letter-spacing="0.01em">☆ 无法折返</text>
 
             <!-- Turning Point 2 at 75% -->
-            <line x1="1125" y1="-10" x2="1125" y2="660" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4"/>
-            <rect x="1041" y="4" width="168" height="56" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1" rx="6" opacity="0.92"/>
-            <text x="1125" y="28" font-family="'Noto Serif SC', serif" font-size="17" font-weight="bold" fill="#6D28D9" text-anchor="middle">转折点② 75%</text>
-            <text x="1125" y="50" font-family="'Inter', sans-serif" font-size="15" fill="#7C3AED" text-anchor="middle">☆ 导向结尾</text>
+            <line x1="1125" y1="-10" x2="1125" y2="660" stroke="var(--color-brand-coral, #E8836B)" stroke-width="2" stroke-dasharray="6,4"/>
+            <rect x="1041" y="4" width="168" height="56" fill="var(--color-brand-bg, #FBF7F4)" stroke="var(--color-brand-coral, #E8836B)" stroke-width="1" rx="6" opacity="0.92"/>
+            <text x="1125" y="28" font-family="'Noto Serif SC', serif" font-size="17" font-weight="400" fill="var(--color-brand-text, #3D2B1F)" text-anchor="middle" letter-spacing="0.01em">转折点② 75%</text>
+            <text x="1125" y="50" font-family="'Noto Serif SC', serif" font-size="15" fill="var(--color-brand-coral, #E8836B)" text-anchor="middle" letter-spacing="0.01em">☆ 导向结尾</text>
 
-            <!-- ========== TENSION CURVE ========== -->
-            <path d="M 0,582 L 150,496 L 225,539 L 300,462 L 450,325 L 525,411 L 600,280 L 675,360 L 750,160 L 825,300 L 900,240 L 1000,550 L 1125,350 L 1200,154 L 1310,34 L 1400,188 L 1500,325" fill="none" stroke="url(#tensionGradient)" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" filter="url(#curveShadow)"/>
+            <!-- ========== SMOOTH TENSION CURVE ========== -->
+            <path d="M 0,582 C -18.75,580.5833333333334 18.75,579.4166666666666 150,496 C 131.25,499.5833333333333 168.75,492.4166666666667 225,539 C 212.5,541.8333333333334 237.5,536.1666666666666 300,462 C 281.25,479.8333333333333 318.75,444.1666666666667 450,325 C 431.25,329.25 468.75,320.75 525,411 C 512.5,414.75 537.5,407.25 600,280 C 587.5,284.25 612.5,275.75 675,360 C 662.5,370 687.5,350 750,160 C 737.5,165 762.5,155 825,300 C 812.5,293.3333333333333 837.5,306.6666666666667 900,240 C 885.4166666666666,219.16666666666666 914.5833333333334,260.8333333333333 1000,550 C 981.25,540.8333333333334 1018.75,559.1666666666666 1125,350 C 1108.3333333333333,383 1141.6666666666667,317 1200,154 C 1184.5833333333333,180.33333333333334 1215.4166666666667,127.66666666666667 1310,34 C 1293.3333333333333,31.166666666666668 1326.6666666666667,36.833333333333336 1400,188 C 1384.1666666666667,163.75 1415.8333333333333,212.25 1500,325" fill="none" stroke="url(#tensionGradient)" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" filter="url(#curveShadow)"/>
 
             <!-- ========== DATA POINT MARKERS ========== -->
             <g filter="url(#pointShadow)">
-              <!-- Red triangles at PEAKS -->
-              <polygon class="data-point" data-index="1" points="150,486 139,508 161,508" fill="#DC2626" stroke="#B91C1C" stroke-width="1.5" style="cursor:pointer"/>
-              <polygon class="data-point" data-index="4" points="450,315 439,337 461,337" fill="#DC2626" stroke="#B91C1C" stroke-width="1.5" style="cursor:pointer"/>
-              <polygon class="data-point" data-index="6" points="600,270 589,292 611,292" fill="#DC2626" stroke="#B91C1C" stroke-width="1.5" style="cursor:pointer"/>
-              <polygon class="data-point" data-index="8" points="750,150 739,172 761,172" fill="#DC2626" stroke="#B91C1C" stroke-width="1.5" style="cursor:pointer"/>
-              <polygon class="data-point" data-index="10" points="900,230 889,252 911,252" fill="#DC2626" stroke="#B91C1C" stroke-width="1.5" style="cursor:pointer"/>
+              <!-- Red triangles at PEAKS (挫折、阻碍、问题) -->
+              <polygon class="data-point" data-index="1" points="150,486 139,508 161,508" fill="var(--color-brand-coral, #E8836B)" stroke="var(--color-brand-coral, #E8836B)" stroke-width="1.5" style="cursor:pointer"/>
+              <polygon class="data-point" data-index="4" points="450,315 439,337 461,337" fill="var(--color-brand-coral, #E8836B)" stroke="var(--color-brand-coral, #E8836B)" stroke-width="1.5" style="cursor:pointer"/>
+              <polygon class="data-point" data-index="6" points="600,270 589,292 611,292" fill="var(--color-brand-coral, #E8836B)" stroke="var(--color-brand-coral, #E8836B)" stroke-width="1.5" style="cursor:pointer"/>
+              <polygon class="data-point" data-index="8" points="750,150 739,172 761,172" fill="var(--color-brand-coral, #E8836B)" stroke="var(--color-brand-coral, #E8836B)" stroke-width="1.5" style="cursor:pointer"/>
+              <polygon class="data-point" data-index="10" points="900,230 889,252 911,252" fill="var(--color-brand-coral, #E8836B)" stroke="var(--color-brand-coral, #E8836B)" stroke-width="1.5" style="cursor:pointer"/>
               <!-- Climax triangle — larger -->
-              <polygon class="data-point" data-index="14" points="1310,20 1296,48 1324,48" fill="#DC2626" stroke="#B91C1C" stroke-width="2" style="cursor:pointer"/>
+              <polygon class="data-point climax-pulse" data-index="14" points="1310,20 1296,48 1324,48" fill="var(--color-brand-coral, #E8836B)" stroke="var(--color-brand-coral, #E8836B)" stroke-width="2" style="cursor:pointer"/>
 
-              <!-- Blue circles at VALLEYS -->
-              <circle class="data-point" data-index="2" cx="225" cy="539" r="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5" style="cursor:pointer"/>
-              <circle class="data-point" data-index="5" cx="525" cy="411" r="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5" style="cursor:pointer"/>
-              <circle class="data-point" data-index="7" cx="675" cy="360" r="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5" style="cursor:pointer"/>
-              <circle class="data-point" data-index="9" cx="825" cy="300" r="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5" style="cursor:pointer"/>
-              <circle class="data-point" data-index="11" cx="1000" cy="550" r="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5" style="cursor:pointer"/>
-              <circle class="data-point" data-index="13" cx="1200" cy="154" r="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5" style="cursor:pointer"/>
-              <circle class="data-point" data-index="15" cx="1400" cy="188" r="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5" style="cursor:pointer"/>
+              <!-- Blue circles at VALLEYS (推进动作场景) -->
+              <circle class="data-point" data-index="2" cx="225" cy="539" r="10" fill="var(--color-brand-text, #3D2B1F)" stroke="var(--color-brand-text, #3D2B1F)" stroke-width="1.5" style="cursor:pointer"/>
+              <circle class="data-point" data-index="5" cx="525" cy="411" r="10" fill="var(--color-brand-text, #3D2B1F)" stroke="var(--color-brand-text, #3D2B1F)" stroke-width="1.5" style="cursor:pointer"/>
+              <circle class="data-point" data-index="7" cx="675" cy="360" r="10" fill="var(--color-brand-text, #3D2B1F)" stroke="var(--color-brand-text, #3D2B1F)" stroke-width="1.5" style="cursor:pointer"/>
+              <circle class="data-point" data-index="9" cx="825" cy="300" r="10" fill="var(--color-brand-text, #3D2B1F)" stroke="var(--color-brand-text, #3D2B1F)" stroke-width="1.5" style="cursor:pointer"/>
+              <circle class="data-point" data-index="11" cx="1000" cy="550" r="10" fill="var(--color-brand-text, #3D2B1F)" stroke="var(--color-brand-text, #3D2B1F)" stroke-width="1.5" style="cursor:pointer"/>
+              <circle class="data-point" data-index="13" cx="1200" cy="154" r="10" fill="var(--color-brand-text, #3D2B1F)" stroke="var(--color-brand-text, #3D2B1F)" stroke-width="1.5" style="cursor:pointer"/>
+              <circle class="data-point" data-index="15" cx="1400" cy="188" r="10" fill="var(--color-brand-text, #3D2B1F)" stroke="var(--color-brand-text, #3D2B1F)" stroke-width="1.5" style="cursor:pointer"/>
 
               <!-- Climax glow ring -->
-              <circle cx="1310" cy="34" r="24" fill="none" stroke="#DC2626" stroke-width="2" opacity="0.25"/>
+              <circle cx="1310" cy="34" r="24" fill="none" stroke="var(--color-brand-coral, #E8836B)" stroke-width="2" opacity="0.25"/>
             </g>
 
             <!-- Hit areas for start/turning/end points (invisible larger targets) -->
@@ -139,86 +182,86 @@ import Layout from '../layouts/Layout.astro';
             <circle class="data-point" data-index="16" cx="1500" cy="325" r="14" fill="transparent" style="cursor:pointer"/>
 
             <!-- ========== ANNOTATIONS ========== -->
-            <rect x="668" y="116" width="164" height="32" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1" rx="6" opacity="0.92"/>
-            <text x="750" y="139" font-family="'Noto Serif SC', serif" font-size="17" font-weight="bold" fill="#1E40AF" text-anchor="middle">中点：第二幕高峰</text>
+            <rect x="668" y="116" width="164" height="32" fill="var(--color-brand-bg, #FBF7F4)" stroke="var(--color-brand-coral, #E8836B)" stroke-width="1" rx="6" opacity="0.92"/>
+            <text x="750" y="139" font-family="'Noto Serif SC', serif" font-size="17" font-weight="400" fill="var(--color-brand-text, #3D2B1F)" text-anchor="middle" letter-spacing="0.01em">中点：第二幕高峰</text>
 
-            <rect x="910" y="556" width="180" height="34" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1" rx="6" opacity="0.92"/>
-            <text x="1000" y="580" font-family="'Noto Serif SC', serif" font-size="18" font-weight="bold" fill="#92400E" text-anchor="middle">一无所有时刻</text>
+            <rect x="910" y="556" width="180" height="34" fill="var(--color-brand-bg, #FBF7F4)" stroke="var(--color-brand-coral, #E8836B)" stroke-width="1" rx="6" opacity="0.92"/>
+            <text x="1000" y="580" font-family="'Noto Serif SC', serif" font-size="18" font-weight="400" fill="var(--color-brand-text, #3D2B1F)" text-anchor="middle" letter-spacing="0.01em">一无所有时刻</text>
 
-            <rect x="1345" y="6" width="148" height="60" fill="#FEF2F2" stroke="#FECACA" stroke-width="1" rx="8" filter="url(#boxShadow)"/>
-            <text x="1419" y="32" font-family="'Noto Serif SC', serif" font-size="22" font-weight="bold" fill="#DC2626" text-anchor="middle">▲ 高潮</text>
-            <text x="1419" y="56" font-family="'Inter', sans-serif" font-size="17" fill="#DC2626" text-anchor="middle">冲击结尾</text>
-            <line x1="1345" y1="36" x2="1330" y2="36" stroke="#DC2626" stroke-width="1.5"/>
-            <polygon points="1330,36 1338,32 1338,40" fill="#DC2626"/>
+            <rect x="1345" y="6" width="148" height="60" fill="var(--color-brand-bg, #FBF7F4)" stroke="var(--color-brand-coral, #E8836B)" stroke-width="1" rx="8" filter="url(#boxShadow)"/>
+            <text x="1419" y="32" font-family="'Noto Serif SC', serif" font-size="22" font-weight="400" fill="var(--color-brand-coral, #E8836B)" text-anchor="middle" letter-spacing="0.02em">▲ 高潮</text>
+            <text x="1419" y="56" font-family="'Noto Serif SC', serif" font-size="17" fill="var(--color-brand-coral, #E8836B)" text-anchor="middle" letter-spacing="0.01em">冲击结尾</text>
+            <line x1="1345" y1="36" x2="1330" y2="36" stroke="var(--color-brand-coral, #E8836B)" stroke-width="1.5"/>
+            <polygon points="1330,36 1338,32 1338,40" fill="var(--color-brand-coral, #E8836B)"/>
 
           </g>
 
           <!-- Legend -->
           <g transform="translate(200, 905)">
-            <rect x="-15" y="-28" width="580" height="70" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1" rx="10" filter="url(#boxShadow)"/>
-            <text x="8" y="6" font-family="'Noto Serif SC', serif" font-size="22" font-weight="bold" fill="#1F2937">图例</text>
-            <polygon points="90,-4 78,18 102,18" fill="#DC2626" stroke="#B91C1C" stroke-width="1.5"/>
-            <text x="114" y="16" font-family="'Inter', sans-serif" font-size="20" fill="#374151">挫折、阻碍、问题</text>
-            <circle cx="350" cy="6" r="9" fill="#2563EB" stroke="#1D4ED8" stroke-width="1.5"/>
-            <text x="370" y="16" font-family="'Inter', sans-serif" font-size="20" fill="#374151">推进动作场景</text>
+            <rect x="-15" y="-28" width="580" height="70" fill="var(--color-brand-bg, #FBF7F4)" stroke="var(--color-brand-coral, #E8836B)" stroke-width="1" rx="10" filter="url(#boxShadow)"/>
+            <text x="8" y="6" font-family="'Noto Serif SC', serif" font-size="22" font-weight="400" fill="var(--color-brand-text, #3D2B1F)" letter-spacing="0.02em">图例</text>
+            <polygon points="90,-4 78,18 102,18" fill="var(--color-brand-coral, #E8836B)" stroke="var(--color-brand-coral, #E8836B)" stroke-width="1.5"/>
+            <text x="114" y="16" font-family="'Noto Serif SC', serif" font-size="20" fill="var(--color-brand-text, #3D2B1F)" letter-spacing="0.01em">挫折、阻碍、问题</text>
+            <circle cx="350" cy="6" r="9" fill="var(--color-brand-text, #3D2B1F)" stroke="var(--color-brand-text, #3D2B1F)" stroke-width="1.5"/>
+            <text x="370" y="16" font-family="'Noto Serif SC', serif" font-size="20" fill="var(--color-brand-text, #3D2B1F)" letter-spacing="0.01em">推进动作场景</text>
           </g>
 
           <!-- Info Box -->
           <g transform="translate(1080, 905)">
-            <rect x="-15" y="-28" width="650" height="70" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1" rx="10" filter="url(#boxShadow)"/>
-            <text x="8" y="2" font-family="'Noto Serif SC', serif" font-size="22" font-weight="bold" fill="#1F2937">理想张力曲线特征</text>
-            <text x="8" y="30" font-family="'Inter', sans-serif" font-size="18" fill="#4B5563">① 明确上升趋势　② 丰富起伏变化　③ 高峰在 75-85%　④ 适当回落坡度</text>
+            <rect x="-15" y="-28" width="650" height="70" fill="var(--color-brand-bg, #FBF7F4)" stroke="var(--color-brand-coral, #E8836B)" stroke-width="1" rx="10" filter="url(#boxShadow)"/>
+            <text x="8" y="2" font-family="'Noto Serif SC', serif" font-size="22" font-weight="400" fill="var(--color-brand-text, #3D2B1F)" letter-spacing="0.02em">理想张力曲线特征</text>
+            <text x="8" y="30" font-family="'Noto Serif SC', serif" font-size="18" fill="var(--color-brand-text, #3D2B1F)" letter-spacing="0.01em">① 明确上升趋势　② 丰富起伏变化　③ 高峰在 75-85%　④ 适当回落坡度</text>
           </g>
 
           <!-- Branding -->
-          <text x="1880" y="1065" font-family="'Inter', sans-serif" font-size="14" fill="#D1D5DB" text-anchor="end">© 施施小洛 ssxl.me</text>
+          <text x="1880" y="1065" font-family="'Noto Serif SC', serif" font-size="14" fill="var(--color-brand-text, #3D2B1F)" opacity="0.5" text-anchor="end" letter-spacing="0.02em">© 施施小洛 ssxl.me</text>
         </svg>
       </div>
 
       <!-- Tooltip -->
       <div id="tooltip" class="fixed pointer-events-none opacity-0 transition-opacity duration-150 z-50" style="will-change: transform;">
-        <div class="bg-white border border-stone-200 rounded-lg shadow-lg px-5 py-4 max-w-xs">
+        <div class="bg-white border border-[#E8836B]/30 rounded-lg shadow-lg px-5 py-4 max-w-xs">
           <div class="flex items-center gap-2 mb-1.5">
-            <span id="tooltip-badge" class="text-xs font-medium px-2 py-0.5 rounded-full"></span>
+            <span id="tooltip-badge" class="text-xs font-medium px-2 py-0.5 rounded-full bg-[#FBF7F4] text-[#3D2B1F]"></span>
             <span id="tooltip-pct" class="text-xs text-stone-400 font-mono"></span>
           </div>
-          <p id="tooltip-label" class="font-serif text-base font-semibold text-stone-800 mb-1"></p>
-          <p id="tooltip-desc" class="text-sm text-stone-500 leading-relaxed"></p>
+          <p id="tooltip-label" class="font-serif text-base font-medium text-[#3D2B1F] mb-1"></p>
+          <p id="tooltip-desc" class="text-sm text-stone-600 leading-relaxed"></p>
         </div>
       </div>
     </div>
 
     <!-- Mobile hint -->
-    <p class="md:hidden text-center text-stone-400 text-sm mt-3">← 横向滑动查看完整图表 →</p>
+    <p class="md:hidden text-center text-stone-500 text-sm mt-3 font-light">← 横向滑动查看完整图表 →</p>
 
     <!-- Download Buttons -->
-    <div class="flex justify-center gap-4 mt-8">
-      <button id="download-svg" class="border border-brand-text px-6 py-2.5 uppercase tracking-widest text-xs font-medium hover:bg-brand-coral hover:border-brand-coral hover:text-white transition-all duration-300">
-        下载 SVG
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-12">
+      <button id="download-svg" class="bg-[#FBF7F4] border border-[#E8836B]/30 text-[#3D2B1F] px-8 py-3 rounded-lg hover:bg-[#E8836B] hover:border-[#E8836B] hover:text-white transition-all duration-300 font-medium tracking-wide">
+        下载 SVG 图片
       </button>
-      <button id="download-png" class="border border-brand-text px-6 py-2.5 uppercase tracking-widest text-xs font-medium hover:bg-brand-coral hover:border-brand-coral hover:text-white transition-all duration-300">
-        下载 PNG
+      <button id="download-png" class="bg-[#FBF7F4] border border-[#E8836B]/30 text-[#3D2B1F] px-8 py-3 rounded-lg hover:bg-[#E8836B] hover:border-[#E8836B] hover:text-white transition-all duration-300 font-medium tracking-wide">
+        下载 PNG 图片
       </button>
     </div>
 
     <!-- Explanatory Section -->
-    <section class="max-w-4xl mx-auto mt-20">
-      <h2 class="font-serif text-2xl md:text-3xl text-center mb-10 font-light">如何阅读这张图？</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white rounded-lg p-6 shadow-sm border border-stone-200">
-          <div class="text-2xl mb-3">🎭</div>
-          <h3 class="font-serif text-lg font-semibold mb-2">三幕结构</h3>
-          <p class="text-stone-600 text-sm leading-relaxed">开头建立世界观、中段层层发展、结尾走向高潮——这是最经典的故事骨架。转折点在 20% 和 75% 处将三幕自然分割。</p>
+    <section class="max-w-5xl mx-auto mt-20">
+      <h2 class="font-serif text-2xl md:text-3xl text-center mb-16 font-light tracking-wide">如何阅读这张图？</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl p-8 border border-[#F2E9E4] shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="text-3xl mb-5">🎭</div>
+          <h3 class="font-serif text-lg font-medium mb-4 text-[#3D2B1F]">三幕结构</h3>
+          <p class="text-stone-600 leading-relaxed">开头建立世界观、中段层层发展、结尾走向高潮——这是最经典的故事骨架。转折点在 20% 和 75% 处将三幕自然分割。</p>
         </div>
-        <div class="bg-white rounded-lg p-6 shadow-sm border border-stone-200">
-          <div class="text-2xl mb-3">⚡</div>
-          <h3 class="font-serif text-lg font-semibold mb-2">锯齿起伏</h3>
-          <p class="text-stone-600 text-sm leading-relaxed">好故事不是一路上升，而是在挫折<span class="text-red-600 font-medium">△</span>和推进<span class="text-blue-600 font-medium">●</span>之间不断交替，形成张力的「呼吸感」。</p>
+        <div class="bg-white rounded-xl p-8 border border-[#F2E9E4] shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="text-3xl mb-5">⚡</div>
+          <h3 class="font-serif text-lg font-medium mb-4 text-[#3D2B1F]">锯齿起伏</h3>
+          <p class="text-stone-600 leading-relaxed">好故事不是一路上升，而是在挫折<span class="text-[#E8836B] font-medium">△</span>和推进<span class="text-[#3D2B1F] font-medium">●</span>之间不断交替，形成张力的「呼吸感」。</p>
         </div>
-        <div class="bg-white rounded-lg p-6 shadow-sm border border-stone-200">
-          <div class="text-2xl mb-3">🌑</div>
-          <h3 class="font-serif text-lg font-semibold mb-2">一无所有时刻</h3>
-          <p class="text-stone-600 text-sm leading-relaxed">高潮前的最深低谷。让读者以为一切完了——然后绝地反击。没有这个低谷，高潮就缺少对比和冲击力。</p>
+        <div class="bg-white rounded-xl p-8 border border-[#F2E9E4] shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="text-3xl mb-5">🌑</div>
+          <h3 class="font-serif text-lg font-medium mb-4 text-[#3D2B1F]">一无所有时刻</h3>
+          <p class="text-stone-600 leading-relaxed">高潮前的最深低谷。让读者以为一切完了——然后绝地反击。没有这个低谷，高潮就缺少对比和冲击力。</p>
         </div>
       </div>
     </section>
@@ -226,10 +269,162 @@ import Layout from '../layouts/Layout.astro';
     <!-- Source credit -->
     <p class="text-center text-stone-300 text-xs mt-16 mb-8">基于经典三幕结构理论 · 施施小洛制图</p>
 
-  </main>
-</Layout>
+    <!-- Comprehensive Theory Section -->
+    <section id="theory" class="max-w-6xl mx-auto mt-24 px-4">
+      <h2 class="font-serif text-2xl md:text-3xl text-center mb-16 font-light tracking-wide">理想张力曲线的理论基础</h2>
+      
+      <div class="bg-[#FBF7F4] border border-[#F0E8E0] rounded-xl p-8 mb-16">
+        <h3 class="font-serif text-xl text-center mb-10 text-[#3D2B1F]">理想张力曲线的关键特征:</h3>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-white p-6 rounded-lg border border-[#F2E9E4] shadow-sm">
+            <h4 class="font-serif text-lg font-medium mb-3 text-[#3D2B1F] mb-4">明确的上升趋势</h4>
+            <p class="text-stone-600 leading-relaxed">整体张力在增加，不是原地踏步。即使有暂时的下降，长期趋势始终向上，确保故事持续推进并积累能量。</p>
+          </div>
+          <div class="bg-white p-6 rounded-lg border border-[#F2E9E4] shadow-sm">
+            <h4 class="font-serif text-lg font-medium mb-3 text-[#3D2B1F] mb-4">丰富的起伏变化</h4>
+            <p class="text-stone-600 leading-relaxed">有高峰也有低谷，避免长时间平台期。张力的“呼吸感”让读者体验到情绪的起伏，维持阅读兴趣。</p>
+          </div>
+          <div class="bg-white p-6 rounded-lg border border-[#F2E9E4] shadow-sm">
+            <h4 class="font-serif text-lg font-medium mb-3 text-[#3D2B1F] mb-4">清晰的高峰位置</h4>
+            <p class="text-stone-600 leading-relaxed">高潮在 75%-85% 处，这是整个故事的能量顶点。此时所有矛盾汇聚，角色面临最大挑战，也是读者情绪的最高点。</p>
+          </div>
+          <div class="bg-white p-6 rounded-lg border border-[#F2E9E4] shadow-sm">
+            <h4 class="font-serif text-lg font-medium mb-3 text-[#3D2B1F] mb-4">适当的回落坡度</h4>
+            <p class="text-stone-600 leading-relaxed">高潮之后，结局不戛然而止，让读者情绪平稳落地。回落过程给予读者情感释放和思考空间。</p>
+          </div>
+        </div>
+      </div>
 
-<script>
+      <div class="space-y-16">
+        <div class="bg-white border border-[#F2E9E4] rounded-xl p-8">
+          <h3 class="font-serif text-xl mb-8 text-center text-[#3D2B1F]">第一幕：平缓但坚定的上升</h3>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="text-center">
+              <div class="w-16 h-16 bg-[#E8836B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-[#E8836B] font-bold text-lg">1</span>
+              </div>
+              <h4 class="font-serif text-base font-medium mb-3 text-[#3D2B1F]">开场</h4>
+              <p class="text-sm text-stone-600">建立基准张力，通常较低。介绍世界观、人物关系，为后续冲突做铺垫。</p>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-[#E8836B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-[#E8836B] font-bold text-lg">2</span>
+              </div>
+              <h4 class="font-serif text-base font-medium mb-3 text-[#3D2B1F]">激励事件</h4>
+              <p class="text-sm text-stone-600">第一次明显的张力跃升。打破日常生活平衡，迫使主角踏上旅程。</p>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-[#E8836B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-[#E8836B] font-bold text-lg">3</span>
+              </div>
+              <h4 class="font-serif text-base font-medium mb-3 text-[#3D2B1F]">第一幕转折</h4>
+              <p class="text-sm text-stone-600">张力达到第一个小高峰。主角彻底卷入冲突，无法回头。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border border-[#F2E9E4] rounded-xl p-8">
+          <h3 class="font-serif text-xl mb-8 text-center text-[#3D2B1F]">第二幕：剧烈波动的上升趋势</h3>
+          <div class="space-y-8">
+            <div class="text-center">
+              <p class="text-stone-600 italic mb-6">应遵循"两次前进，一次后退"的原则：主角取得进展（张力稍降），但引发新问题（张力上升且高于之前）</p>
+              <div class="bg-[#F9F7F6] rounded-lg p-6 inline-block">
+                <p class="text-stone-700 font-medium">核心模式：</p>
+                <p class="text-stone-600 mt-2">行动 → 成功 → 新问题 → 更大冲突</p>
+              </div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-[#E8836B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span class="text-[#E8836B] font-bold text-lg">4</span>
+                </div>
+                <h4 class="font-serif text-base font-medium mb-3 text-[#3D2B1F]">中点</h4>
+                <p class="text-sm text-stone-600">第二幕的张力高峰。局势彻底扭转，故事进入全新阶段。</p>
+              </div>
+              <div class="text-center">
+                <div class="w-16 h-16 bg-[#E8836B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span class="text-[#E8836B] font-bold text-lg">5</span>
+                </div>
+                <h4 class="font-serif text-base font-medium mb-3 text-[#3D2B1F]">持续升级</h4>
+                <p class="text-sm text-stone-600">矛盾不断激化，角色面临越来越大的挑战。</p>
+              </div>
+              <div class="text-center">
+                <div class="w-16 h-16 bg-[#E8836B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span class="text-[#E8836B] font-bold text-lg">6</span>
+                </div>
+                <h4 class="font-serif text-base font-medium mb-3 text-[#3D2B1F]">一无所有时刻</h4>
+                <p class="text-sm text-stone-600">第二幕的张力低谷，为最终高潮储备势能。看似一切已完，实则转机将至。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border border-[#F2E9E4] rounded-xl p-8">
+          <h3 class="font-serif text-xl mb-8 text-center text-[#3D2B1F]">第三幕：陡峭上升至顶峰后迅速回落</h3>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="text-center">
+              <div class="w-16 h-16 bg-[#E8836B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-[#E8836B] font-bold text-lg">7</span>
+              </div>
+              <h4 class="font-serif text-base font-medium mb-3 text-[#3D2B1F]">绝地反击</h4>
+              <p class="text-sm text-stone-600">从"一无所有"到高潮的最陡峭张力上升段。角色运用全部智慧与力量。</p>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-[#E8836B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-[#E8836B] font-bold text-lg">8</span>
+              </div>
+              <h4 class="font-serif text-base font-medium mb-3 text-[#3D2B1F]">绝对高潮</h4>
+              <p class="text-sm text-stone-600">绝对张力峰值。所有冲突在此汇聚，角色完成最终考验。</p>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-[#E8836B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-[#E8836B] font-bold text-lg">9</span>
+              </div>
+              <h4 class="font-serif text-base font-medium mb-3 text-[#3D2B1F]">平稳回落</h4>
+              <p class="text-sm text-stone-600">张力迅速但平稳地回落，给予情感释放。展示结局世界的新平衡。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  </Layout>
+
+  <script>
+    // Scrollreveal animation for theory section
+    document.addEventListener('DOMContentLoaded', () => {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('opacity-0');
+            entry.target.classList.add('fade-in');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      // Observe all theory elements - start hidden
+      document.querySelectorAll('#theory [class*="bg-"]').forEach(el => {
+        el.classList.add('opacity-0');
+        observer.observe(el);
+      });
+
+      // Add pulse animation to climax
+      const climaxElements = document.querySelectorAll('.data-point[data-index="14"]');
+      climaxElements.forEach(el => {
+        if (el.tagName === 'polygon') {
+          el.classList.add('climax-pulse');
+        }
+      });
+    });
   const dataPoints = [
     { x: 0, y: 582, pct: "0%", type: "start", label: "故事开端", desc: "建立世界观和角色" },
     { x: 150, y: 496, pct: "10%", type: "peak", label: "初始冲突", desc: "第一个小挫折或矛盾" },
@@ -251,14 +446,14 @@ import Layout from '../layouts/Layout.astro';
   ];
 
   const badgeStyles: Record<string, { bg: string; text: string; label: string }> = {
-    start:     { bg: "#F3F4F6", text: "#374151", label: "起点" },
-    peak:      { bg: "#FEE2E2", text: "#DC2626", label: "挫折 △" },
-    valley:    { bg: "#DBEAFE", text: "#2563EB", label: "推进 ●" },
-    turning:   { bg: "#EDE9FE", text: "#7C3AED", label: "转折 ☆" },
-    midpoint:  { bg: "#DBEAFE", text: "#1E40AF", label: "中点" },
-    allislost: { bg: "#FEF3C7", text: "#92400E", label: "低谷" },
-    climax:    { bg: "#FEE2E2", text: "#DC2626", label: "高潮 ★" },
-    end:       { bg: "#F3F4F6", text: "#374151", label: "终点" },
+    start:     { bg: "#F2E9E4", text: "#3D2B1F", label: "起点" },
+    peak:      { bg: "#E8836B", text: "#FFFFFF", label: "高峰 ▲" },
+    valley:    { bg: "#A7C7E7", text: "#1E3A5F", label: "推进 ●" },
+    turning:   { bg: "#C4B5FD", text: "#4C1D95", label: "转折 ☆" },
+    midpoint:  { bg: "#E8836B", text: "#FFFFFF", label: "中点" },
+    allislost: { bg: "#60A5FA", text: "#1E3A5F", label: "低谷" },
+    climax:    { bg: "#DC2626", text: "#FFFFFF", label: "高潮 ★" },
+    end:       { bg: "#F2E9E4", text: "#3D2B1F", label: "终点" },
   };
 
   // Tooltip elements
@@ -285,9 +480,17 @@ import Layout from '../layouts/Layout.astro';
       tooltipBadge.style.color = badge.text;
       tooltip.classList.remove("opacity-0");
       tooltip.classList.add("opacity-100");
-      el.style.transform = "scale(1.35)";
-      el.style.transformOrigin = "center";
-      el.style.transition = "transform 0.15s ease";
+      
+      // Add scale effect
+      if (el.tagName === 'polygon') {
+        el.style.transform = "scale(1.2)";
+        el.style.transformOrigin = "center";
+        el.style.transition = "transform 0.15s ease";
+      } else if (el.tagName === 'circle') {
+        el.style.transform = "scale(1.2)";
+        el.style.transformOrigin = "center";
+        el.style.transition = "transform 0.15s ease";
+      }
     });
 
     el.addEventListener("mouseleave", () => {
@@ -310,24 +513,29 @@ import Layout from '../layouts/Layout.astro';
 
   // Act zone highlighting
   const zones = document.querySelectorAll<SVGRectElement>(".act-zone");
-  const actOriginalOpacity: Record<string, string> = { "1": "0.55", "2": "0.30", "3": "0.55" };
 
   zones.forEach((zone) => {
     zone.addEventListener("mouseenter", () => {
       const activeAct = zone.dataset.act;
       zones.forEach((z) => {
-        z.style.transition = "opacity 0.25s ease";
+        z.style.transition = "fill-opacity 0.25s ease";
         if (z.dataset.act === activeAct) {
-          z.style.opacity = z.dataset.act === "2" ? "0.50" : "0.75";
+          z.style.fillOpacity = "0.3";
         } else {
-          z.style.opacity = "0.08";
+          z.style.fillOpacity = "0.05";
         }
       });
     });
     zone.addEventListener("mouseleave", () => {
       zones.forEach((z) => {
-        z.style.transition = "opacity 0.25s ease";
-        z.style.opacity = actOriginalOpacity[z.dataset.act || "1"];
+        z.style.transition = "fill-opacity 0.25s ease";
+        if(z.dataset.act === "1") {
+          z.style.fillOpacity = "0.20";
+        } else if (z.dataset.act === "2") {
+          z.style.fillOpacity = "0.30";
+        } else if (z.dataset.act === "3") {
+          z.style.fillOpacity = "0.25";
+        }
       });
     });
   });

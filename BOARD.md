@@ -42,3 +42,5 @@
 - `feat` 更新网站 global.css 引入第一批的 Style A 高级样式（引言卡片、序号角标、珊瑚色块等）
 - `deploy` 第二批 12 篇文章已推送微信公众号草稿箱（带 ssxl.me 网站原文链接）
 - `deploy` 网站代码推送到 GitHub，触发 Vercel 部署包含第二批文章的全新网站。
+
+- `feat` 生成缺失的 7 张网站封面 (2048x880)，使用 ComfyUI + Flux Dev 模型
