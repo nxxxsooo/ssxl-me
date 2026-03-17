@@ -2,39 +2,359 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="关于我" description="施施小洛 (SSxL)，关系心理学创作者，分享思考与成长的个人空间。">
-    <main class="max-w-4xl mx-auto px-6 py-12 md:py-24">
-        <header class="flex flex-col md:grid md:grid-cols-2 gap-12 items-center mb-24">
+<Layout title="关于我" description="施施小洛——作家、出版策划人。策划出版多部超级畅销书，擅长挖掘新人、操盘千万级 IP，打造全产业链。">
+    <main class="max-w-5xl mx-auto px-6 py-12 md:py-24">
+
+        <!-- Hero: Portrait + Identity -->
+        <header class="flex flex-col md:grid md:grid-cols-2 gap-12 md:gap-20 items-center mb-24 md:mb-32">
             <div class="aspect-[3/4] w-full overflow-hidden">
                 <img src="/images/portrait.jpg" alt="施施小洛肖像" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
             </div>
             <div>
-                <h1 class="font-serif text-3xl md:text-5xl mb-6">施施小洛 (SSxL)</h1>
-                <p class="text-xl text-brand-coral mb-8 uppercase tracking-widest text-sm">关系心理学创作者</p>
-                <p class="text-stone-700 leading-relaxed mb-6 font-light text-lg">
-                    出版策划人，曾在《今古传奇》《悬疑世界》杂志工作，浦睿文化图书策划。
+                <p class="text-brand-coral uppercase tracking-widest text-xs font-medium mb-4">Writer · Publisher · Creator</p>
+                <h1 class="font-serif text-4xl md:text-6xl font-light leading-tight mb-8">施施小洛</h1>
+                <p class="text-stone-600 leading-relaxed font-light text-lg md:text-xl mb-6">
+                    作家，出版策划人。<br/>
+                    策划出版多部超级畅销书，累计销量过千万册。
                 </p>
-                <p class="text-stone-700 leading-relaxed font-light text-lg">
-                    代表作：《桐花中路私立协济医院怪谈》(100万+销量), 《完美嫌疑人》。
+                <p class="text-stone-500 leading-relaxed font-light">
+                    擅长挖掘新人作者、操盘千万级 IP、打造从内容到影视的全产业链。写过专栏，出过书，做过杂志，也当过幕后推手。
                 </p>
             </div>
         </header>
 
-        <section class="prose prose-stone prose-lg max-w-none">
-            <h2 class="font-serif text-2xl md:text-3xl mb-6">探索关系，洞察自我</h2>
-            <p class="text-stone-700 leading-relaxed mb-6 font-light">
-                现在，我专注于关系心理学（relationship psychology）。用文字，解构复杂的关系。在这里记录思考，分享生活。
-            </p>
-            <p class="text-stone-700 leading-relaxed font-light">
-                在这里，我们一起探索情感的本质，寻找成长的路径。
-            </p>
-            <div class="mt-16 p-8 border border-stone-200 flex flex-col md:flex-row items-center gap-8">
-                <img src="/images/wechat-qr.jpg" alt="施施小洛公众号二维码" class="w-48 h-48 object-contain" />
-                <div>
-                    <h3 class="font-serif text-xl mb-2">扫码关注公众号</h3>
-                    <p class="text-stone-600">获取最新思考与深度解读，期待与你在这里建立连接。</p>
+        <!-- Career Timeline -->
+        <section class="mb-24 md:mb-32">
+            <p class="text-brand-coral uppercase tracking-widest text-xs font-medium mb-12">Career</p>
+            <div class="space-y-16">
+
+                <!-- Block 1: 杂志时代 -->
+                <div class="grid md:grid-cols-12 gap-6 md:gap-12">
+                    <div class="md:col-span-3">
+                        <p class="font-serif text-stone-400 text-sm tracking-wide">杂志时代</p>
+                    </div>
+                    <div class="md:col-span-9">
+                        <h3 class="font-serif text-xl md:text-2xl font-light mb-4">《今古传奇》·《悬疑世界》</h3>
+                        <p class="text-stone-600 leading-relaxed font-light">
+                            从杂志编辑起步，深耕类型文学。在《今古传奇》和蔡骏主编的《悬疑世界》杂志，积累了对故事结构、读者心理和市场节奏的敏锐直觉。这段经历奠定了此后所有工作的底层能力——判断什么样的故事能打动人。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Block 2: 图书策划 -->
+                <div class="grid md:grid-cols-12 gap-6 md:gap-12">
+                    <div class="md:col-span-3">
+                        <p class="font-serif text-stone-400 text-sm tracking-wide">图书策划</p>
+                    </div>
+                    <div class="md:col-span-9">
+                        <h3 class="font-serif text-xl md:text-2xl font-light mb-4">雁北堂 · 超级畅销书操盘手</h3>
+                        <p class="text-stone-600 leading-relaxed font-light mb-6">
+                            在雁北堂担任图书策划人期间，策划出版多部现象级畅销书。擅长从零开始挖掘素人作者，把一个灵感打磨成一本百万级销量的图书，再从图书延伸到影视、有声、周边的全产业链。
+                        </p>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="border-l-2 border-brand-coral pl-4">
+                                <p class="font-serif text-lg mb-1">《桐花中路私立协济医院怪谈》</p>
+                                <p class="text-stone-400 text-sm">100 万 + 销量</p>
+                            </div>
+                            <div class="border-l-2 border-stone-200 pl-4">
+                                <p class="font-serif text-lg mb-1">《完美嫌疑人》</p>
+                                <p class="text-stone-400 text-sm">悬疑畅销系列</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Block 3: 专栏与写作 -->
+                <div class="grid md:grid-cols-12 gap-6 md:gap-12">
+                    <div class="md:col-span-3">
+                        <p class="font-serif text-stone-400 text-sm tracking-wide">写作</p>
+                    </div>
+                    <div class="md:col-span-9">
+                        <h3 class="font-serif text-xl md:text-2xl font-light mb-4">专栏作家 · 独立写作者</h3>
+                        <p class="text-stone-600 leading-relaxed font-light">
+                            不只做幕后。写过专栏，出过自己的书。从编辑到作者的身份切换，让我对「创作」有了双重理解——既知道一本好书怎么写出来，也知道它怎么被看见。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Block 4: 现在 -->
+                <div class="grid md:grid-cols-12 gap-6 md:gap-12">
+                    <div class="md:col-span-3">
+                        <p class="font-serif text-stone-400 text-sm tracking-wide">现在</p>
+                    </div>
+                    <div class="md:col-span-9">
+                        <h3 class="font-serif text-xl md:text-2xl font-light mb-4">关系心理学 · 内容创作者</h3>
+                        <p class="text-stone-600 leading-relaxed font-light">
+                            十几年出版经验之后，把目光转向了人与人之间最本质的课题——关系。用出版人的结构化思维，拆解亲密关系、自我觉察、女性成长中那些说不清道不明的东西。犀利，但有温度。
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <!-- Core Strengths -->
+        <section class="mb-24 md:mb-32">
+            <p class="text-brand-coral uppercase tracking-widest text-xs font-medium mb-12">What I Do</p>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div>
+                    <p class="font-serif text-3xl md:text-4xl font-light text-brand-coral mb-3">01</p>
+                    <h4 class="font-serif text-lg mb-3">挖掘新人</h4>
+                    <p class="text-stone-500 font-light text-sm leading-relaxed">
+                        从茫茫来稿中发现潜力作者，陪他们从第一本书走到畅销书。好编辑的价值，是让才华被看见。
+                    </p>
+                </div>
+                <div>
+                    <p class="font-serif text-3xl md:text-4xl font-light text-brand-coral mb-3">02</p>
+                    <h4 class="font-serif text-lg mb-3">操盘 IP</h4>
+                    <p class="text-stone-500 font-light text-sm leading-relaxed">
+                        一本书不是终点。从图书到影视、有声、周边，把一个好故事的价值放到最大。操盘过千万级 IP 项目。
+                    </p>
+                </div>
+                <div>
+                    <p class="font-serif text-3xl md:text-4xl font-light text-brand-coral mb-3">03</p>
+                    <h4 class="font-serif text-lg mb-3">全产业链</h4>
+                    <p class="text-stone-500 font-light text-sm leading-relaxed">
+                        内容策划、出版发行、版权运营、影视改编——从上游到下游，打通每一个环节。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Get In Touch -->
+        <section class="mb-24 md:mb-32">
+            <p class="text-brand-coral uppercase tracking-widest text-xs font-medium mb-12">Get In Touch</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="border border-stone-200 rounded-lg p-6 hover:border-brand-coral transition-colors">
+                    <a href="https://weibo.com/u/1212058190" target="_blank" rel="noopener" class="flex flex-col items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+                            <path d="M4 4c-.5 0-1 .5-1 1v4c0 4.4 3.6 8 8 8s8-3.6 8-8V5c0-.5-.5-1-1-1H4z"/>
+                            <circle cx="12" cy="9" r="3"/>
+                        </svg>
+                        <span class="font-medium text-sm">微博</span>
+                        <span class="text-stone-400 text-xs mt-1">@施施小洛</span>
+                    </a>
+                </div>
+                
+                <div class="border border-stone-200 rounded-lg p-6 hover:border-brand-coral transition-colors">
+                    <a href="https://www.douyin.com/user/MS4wLjABAAAAoY28ptZFGhSHddr1nDoIkrd9m9ZXz3isP0sMC-4fSitMCCGeHz6OxVz4uJQx9EBe" target="_blank" rel="noopener" class="flex flex-col items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+                            <path d="M17.5 12a5.5 5.5 0 1 1-5.5-5.5 5.5 0 0 1 5.5 5.5z"/>
+                            <path d="M2 12v5a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1z"/>
+                            <path d="M17.5 12a5.5 5.5 0 1 1 0 11"/>
+                        </svg>
+                        <span class="font-medium text-sm">抖音·主号</span>
+                        <span class="text-stone-400 text-xs mt-1">短视频</span>
+                    </a>
+                </div>
+                
+                <div class="border border-stone-200 rounded-lg p-6 hover:border-brand-coral transition-colors">
+                    <a href="https://www.douyin.com/user/MS4wLjABAAAAwkB6ZdS0Jnhuwsx-bxddj7t2l64DTmCSY2-thLcFddc" target="_blank" rel="noopener" class="flex flex-col items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+                            <path d="M17.5 12a5.5 5.5 0 1 1-5.5-5.5 5.5 0 0 1 5.5 5.5z"/>
+                            <path d="M2 12v5a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1z"/>
+                            <path d="M17.5 12a5.5 5.5 0 1 1 0 11"/>
+                        </svg>
+                        <span class="font-medium text-sm">抖音·日常</span>
+                        <span class="text-stone-400 text-xs mt-1">生活分享</span>
+                    </a>
+                </div>
+                
+                <div class="border border-stone-200 rounded-lg p-6 hover:border-brand-coral transition-colors">
+                    <a href="https://www.xiaohongshu.com/user/profile/54e4cdbeb4c4d674d0bed215" target="_blank" rel="noopener" class="flex flex-col items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                        <span class="font-medium text-sm">小红书</span>
+                        <span class="text-stone-400 text-xs mt-1">@施施小洛</span>
+                    </a>
+                </div>
+                
+                <div class="border border-stone-200 rounded-lg p-6 hover:border-brand-coral transition-colors">
+                    <a href="https://space.bilibili.com/395457409" target="_blank" rel="noopener" class="flex flex-col items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <path d="M7 7h10M7 12h4m7 0h-2"/>
+                            <path d="M7 17h10"/>
+                        </svg>
+                        <span class="font-medium text-sm">B站</span>
+                        <span class="text-stone-400 text-xs mt-1">@施施小洛</span>
+                    </a>
+                </div>
+                
+                <div class="border border-stone-200 rounded-lg p-6">
+                    <div class="flex flex-col items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                        </svg>
+                        <span class="font-medium text-sm">公众号</span>
+                        <span class="text-stone-400 text-xs mt-1">施施小洛</span>
+                        <span class="text-stone-400 text-[10px] mt-1">微信搜索</span>
+                    </div>
+                </div>
+                
+                <div class="border border-stone-200 rounded-lg p-6">
+                    <div class="flex flex-col items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
+                            <polygon points="23 7 16 12 23 17 23 7"/>
+                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                        </svg>
+                        <span class="font-medium text-sm">视频号</span>
+                        <span class="text-stone-400 text-xs mt-1">施施小洛</span>
+                        <span class="text-stone-400 text-[10px] mt-1">微信搜索</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="mb-24 md:mb-32">
+            <p class="text-brand-coral uppercase tracking-widest text-xs font-medium mb-12">Services</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="border border-stone-200 rounded-lg p-6 hover:border-brand-coral transition-colors">
+                    <h4 class="font-serif text-lg mb-2">看大纲 / 看稿</h4>
+                    <p class="text-brand-coral font-medium text-sm mb-3">¥800 / 万字（大纲 ¥500 起）</p>
+                    <p class="text-stone-500 font-light text-sm leading-relaxed">
+                        资深编辑视角，帮你把握故事结构、节奏和市场方向。适合长篇小说、非虚构稿件。
+                    </p>
+                </div>
+                
+                <div class="border border-stone-200 rounded-lg p-6 hover:border-brand-coral transition-colors">
+                    <h4 class="font-serif text-lg mb-2">看剧本</h4>
+                    <p class="text-brand-coral font-medium text-sm mb-3">¥1,500 起</p>
+                    <p class="text-stone-500 font-light text-sm leading-relaxed">
+                        从故事逻辑到影视化可行性，给出专业意见。十年出版+影视改编经验背书。
+                    </p>
+                </div>
+                
+                <div class="border border-stone-200 rounded-lg p-6 hover:border-brand-coral transition-colors">
+                    <h4 class="font-serif text-lg mb-2">读书 / 关系心理学咨询</h4>
+                    <p class="text-brand-coral font-medium text-sm mb-3">¥400 / 小时（首次 ¥299）</p>
+                    <p class="text-stone-500 font-light text-sm leading-relaxed">
+                        亲密关系、自我觉察、情绪管理、阅读疗愈。犀利但有温度的一对一对话。
+                    </p>
+                </div>
+                
+                <div class="border border-stone-200 rounded-lg p-6 hover:border-brand-coral transition-colors">
+                    <h4 class="font-serif text-lg mb-2">写作辅导</h4>
+                    <p class="text-brand-coral font-medium text-sm mb-3">¥2,000 / 4 次课（单次 ¥600）</p>
+                    <p class="text-stone-500 font-light text-sm leading-relaxed">
+                        从灵感到成稿的全程陪跑。适合想出书、写专栏、做自媒体的你。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Book a Consultation -->
+        <section class="mb-24 md:mb-32">
+            <p class="text-brand-coral uppercase tracking-widest text-xs font-medium mb-12">Book a Consultation</p>
+            <div class="max-w-xl mx-auto">
+                <form id="consultation-form" class="space-y-6">
+                    <div>
+                        <label for="name" class="text-stone-500 text-xs uppercase tracking-wider mb-2 block">姓名</label>
+                        <input type="text" id="name" name="name" required class="w-full border border-stone-200 rounded px-4 py-3 text-sm font-light focus:outline-none focus:border-brand-coral transition-colors bg-white">
+                    </div>
+                    
+                    <div>
+                        <label for="contact" class="text-stone-500 text-xs uppercase tracking-wider mb-2 block">联系方式</label>
+                        <input type="text" id="contact" name="contact" required placeholder="微信号 / 手机号 / 邮箱" class="w-full border border-stone-200 rounded px-4 py-3 text-sm font-light focus:outline-none focus:border-brand-coral transition-colors bg-white">
+                    </div>
+                    
+                    <div>
+                        <label for="service" class="text-stone-500 text-xs uppercase tracking-wider mb-2 block">服务类型</label>
+                        <select id="service" name="service" class="w-full border border-stone-200 rounded px-4 py-3 text-sm font-light focus:outline-none focus:border-brand-coral transition-colors bg-white">
+                            <option value="">请选择服务类型</option>
+                            <option value="看大纲/看稿">看大纲/看稿</option>
+                            <option value="看剧本">看剧本</option>
+                            <option value="读书/关系心理学咨询">读书 / 关系心理学咨询</option>
+                            <option value="写作辅导">写作辅导</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="budget" class="text-stone-500 text-xs uppercase tracking-wider mb-2 block">预算</label>
+                        <select id="budget" name="budget" class="w-full border border-stone-200 rounded px-4 py-3 text-sm font-light focus:outline-none focus:border-brand-coral transition-colors bg-white">
+                            <option value="">请选择预算范围</option>
+                            <option value="¥1,000 以内">¥1,000 以内</option>
+                            <option value="¥1,000-3,000">¥1,000-3,000</option>
+                            <option value="¥3,000-5,000">¥3,000-5,000</option>
+                            <option value="¥5,000 以上">¥5,000 以上</option>
+                            <option value="面议">面议</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="description" class="text-stone-500 text-xs uppercase tracking-wider mb-2 block">项目描述</label>
+                        <textarea id="description" name="description" rows="4" placeholder="简要描述您的项目或咨询需求" class="w-full border border-stone-200 rounded px-4 py-3 text-sm font-light focus:outline-none focus:border-brand-coral transition-colors bg-white"></textarea>
+                    </div>
+                    
+                    <button type="submit" id="submit-btn" class="w-full bg-brand-coral text-white py-3 rounded font-medium hover:opacity-90 transition-opacity">
+                        提交预约
+                    </button>
+                    <div id="form-message" class="mt-3 text-center text-sm min-h-[1.5em]"></div>
+                </form>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="border-t border-stone-200 pt-16">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                <img src="/images/wechat-qr.jpg" alt="施施小洛公众号二维码" class="w-40 h-40 object-contain" />
+                <div class="text-center md:text-left">
+                    <h3 class="font-serif text-2xl font-light mb-3">关注公众号「施施小洛」</h3>
+                    <p class="text-stone-500 font-light leading-relaxed">
+                        关系心理学、女性成长、出版圈观察。<br class="hidden md:block" />
+                        犀利洞察 + 实用建议，每天一篇。
+                    </p>
+                </div>
+            </div>
+        </section>
+
     </main>
+    
+    <script>
+        const form = document.getElementById('consultation-form');
+        const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+        const formMessage = document.getElementById('form-message')!;
+
+        form?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = '提交中...';
+            formMessage.textContent = '';
+            formMessage.className = 'mt-3 text-center text-sm min-h-[1.5em]';
+
+            try {
+                const fd = new FormData(form);
+                const res = await fetch('/api/consult', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: fd.get('name'),
+                        contact: fd.get('contact'),
+                        service: fd.get('service'),
+                        budget: fd.get('budget'),
+                        description: fd.get('description'),
+                    }),
+                });
+                const data = await res.json();
+
+                if (res.ok && data.success) {
+                    formMessage.textContent = '✓ 已提交，我会尽快联系您';
+                    formMessage.className = 'mt-3 text-center text-sm text-green-600 min-h-[1.5em]';
+                    form.reset();
+                } else {
+                    throw new Error(data.error || '提交失败');
+                }
+            } catch {
+                formMessage.textContent = '提交失败，请直接添加微信联系';
+                formMessage.className = 'mt-3 text-center text-sm text-red-600 min-h-[1.5em]';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '提交预约';
+            }
+        });
+    </script>
 </Layout>

@@ -1,0 +1,74 @@
+// Vercel Serverless Function — proxies form submission to Feishu Bitable
+// Keeps app_secret server-side and avoids CORS issues
+
+const FEISHU_APP_ID = 'cli_a92bdde2543a9bce';
+const FEISHU_APP_SECRET = 'db4GpQjt1eTOH8zythLfadooKqOuHFp7';
+const BITABLE_APP_TOKEN = 'XOVYbguNXaQPwsst7jQcyHr5nzy';
+const BITABLE_TABLE_ID = 'tblybvFx5LSxXkZA';
+
+export default async function handler(req, res) {
+  // Only allow POST
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  try {
+    const { name, contact, service, budget, description } = req.body;
+
+    // Validate required fields
+    if (!name || !contact) {
+      return res.status(400).json({ error: '姓名和联系方式为必填项' });
+    }
+
+    // Step 1: Get Tenant Access Token
+    const tokenRes = await fetch(
+      'https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          app_id: FEISHU_APP_ID,
+          app_secret: FEISHU_APP_SECRET,
+        }),
+      }
+    );
+    const tokenData = await tokenRes.json();
+
+    if (!tokenData.tenant_access_token) {
+      console.error('Failed to get TAT:', tokenData);
+      return res.status(500).json({ error: '服务暂时不可用' });
+    }
+
+    // Step 2: Create record in Bitable
+    const fields = {
+      '姓名': name,
+      '联系方式': contact,
+    };
+    if (service) fields['服务类型'] = service;
+    if (budget) fields['预算'] = budget;
+    if (description) fields['项目描述'] = description;
+
+    const recordRes = await fetch(
+      `https://open.feishu.cn/open-apis/bitable/v1/apps/${BITABLE_APP_TOKEN}/tables/${BITABLE_TABLE_ID}/records`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${tokenData.tenant_access_token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fields }),
+      }
+    );
+    const recordData = await recordRes.json();
+
+    if (recordData.code !== 0) {
+      console.error('Bitable error:', recordData);
+      return res.status(500).json({ error: '提交失败，请稍后重试' });
+    }
+
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    console.error('Consult API error:', err);
+    return res.status(500).json({ error: '服务异常，请直接添加微信联系' });
+  }
+}
