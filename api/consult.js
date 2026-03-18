@@ -39,7 +39,7 @@ export default async function handler(req, res) {
 
     if (!tokenData.tenant_access_token) {
       console.error('Failed to get TAT:', tokenData);
-      return res.status(500).json({ error: '服务暂时不可用' });
+      return res.status(500).json({ error: '服务暂时不可用', debug: tokenData });
     }
 
     // Step 2: Create record in Bitable
