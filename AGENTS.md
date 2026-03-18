@@ -1,56 +1,62 @@
-# SSxL 内容运营 (ssxl-mp)
+# ssxl.me — 施施小洛个人网站
 
 ## Overview
 
-施施小洛（SSxL）女性成长赛道内容运营项目。Phase 0 养号阶段，双渠道日更（公众号 + 视频号）获客，做心理咨询变现。
+施施小洛（SSxL）的个人品牌网站。女性成长赛道，定位：作家、出版策划人、关系心理学内容创作者。Astro + Vercel，SSR via `@astrojs/vercel`。
 
-**关联文档**: `Vault/Projects/personal/ssxl-product-analysis.md` — 产品化分析 & 路线图
+**Live**: https://ssxl.me
+**Repo**: https://github.com/nxxxsooo/ssxl-me
+**Deploy**: Vercel (auto-deploy on push to `main`)
+**关联项目**: `Tuning/ssxl/` — 内容运营（公众号/视频号素材、脚本）
 
-## Content Source
+## Architecture
 
-- 17 篇 docx 长文（`公众号/1.docx` ~ `17.docx`）
-- 主题：亲密关系、自我觉察、女性成长、情绪管理
-- 风格：犀利洞察 + 实用建议，口语化但有深度，2000-3000 字/篇
-- 来源：施施小洛原创
-
-## Channels
-
-| Channel | Format | Frequency | Status |
-|---------|--------|-----------|--------|
-| 公众号 | 图文长文 | 一天一篇 | 待启动 |
-| 视频号 | 短视频（口播/文字动画） | 一天一条 | 待启动 |
-
-## Workflow
-
-### 公众号发布流程
-
-1. docx → pandoc 转 markdown
-2. AI 润色排版（标题、摘要、段落分割、引导语、CTA）
-3. 通过 wechat-mp MCP 上传草稿
-4. 人工审核 → 发布
-
-### 视频号内容流程
-
-1. 从长文提取 3-5 个核心金句/观点
-2. 改写为 60-90 秒口播脚本（或文字动画脚本）
-3. 人工录制/剪辑 → 发布
+- **Framework**: Astro 5.x + TypeScript
+- **Styling**: Tailwind CSS (brand color: `brand-coral`)
+- **Hosting**: Vercel (SSR adapter)
+- **API**: `/api/consult` — 咨询表单提交 → 飞书机器人通知
+- **Content**: Astro Content Collections (`src/content/`)
 
 ## Key Files
 
 ```
-Tuning/ssxl-mp/
-├── AGENTS.md          # This file
-├── BOARD.md           # Publishing schedule & changelog
-├── 公众号/             # Source docx files (1-17)
-├── 公众号.zip          # Original archive
-├── markdown/          # Converted markdown (generated)
-├── scripts/           # Video scripts (generated)
-└── published/         # Published content log
+src/
+├── pages/
+│   ├── index.astro          # Homepage — article list
+│   ├── about.astro          # About page — bio, services, consultation form, QR codes
+│   ├── videos.astro         # Video page — curated video list + 视频号 QR
+│   ├── tension.astro        # Story tension curve (standalone page)
+│   └── posts/[id].astro     # Article detail page
+├── components/
+│   ├── Nav.astro            # Site navigation
+│   ├── FollowCTA.astro      # Article footer — 公众号 QR code CTA
+│   └── Layout.astro         # Base layout
+├── content/                 # Astro content collections (blog posts, videos)
+├── layouts/
+│   └── Layout.astro         # HTML shell
+api/
+└── consult.ts               # Form submission → Feishu bot webhook
+public/images/
+├── wechat-qr.jpg            # 公众号二维码
+├── channels-qr.jpg          # 视频号二维码
+├── portrait.jpg             # About page portrait
+└── covers/                  # Article cover images
 ```
 
 ## Patterns & Conventions
 
-- 文件名保持数字编号（1-17），对应原始 docx
-- Markdown 文件命名：`{编号}-{简短标题}.md`
-- 视频脚本命名：`{编号}-video-script.md`
-- 发布记录在 BOARD.md changelog 中跟踪
+- Font: serif headings (font-serif), light body text (font-light)
+- Color: `brand-coral` accent, `stone-*` neutrals
+- Layout: `max-w-5xl` container, generous vertical spacing (`mb-24 md:mb-32`)
+- Section headers: coral uppercase tracking-widest labels
+- Cards: `border border-stone-200 rounded-lg p-6 hover:border-brand-coral`
+- WeChat/视频号 cards in Get In Touch: click → QR modal popup (not external links)
+- External platform links (微博/抖音/小红书/B站): direct `<a>` links
+- Article footer CTA (`FollowCTA.astro`): only 公众号 QR (intentional — article readers → 公众号)
+- Bottom CTA on about page: dual QR layout (公众号 + 视频号 side by side)
+
+## Resolved Issues
+
+- **QR modal for WeChat cards** (2026-03-18): Get In Touch 公众号/视频号 cards were dead `<div>`s with "微信搜索" text. Now click to show QR modal with backdrop blur, ESC/overlay close.
+- **Douyin label rename** (bc65f6b): 抖音 cards renamed to 情感/读书号 to distinguish two accounts.
+- **Feishu notification** (6014da1): Consultation form POST → `/api/consult` → Feishu bot webhook.

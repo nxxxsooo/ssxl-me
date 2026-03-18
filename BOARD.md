@@ -21,6 +21,12 @@
 
 ## Changelog
 
+### 2026-03-18
+
+- `feat` About 页 Get In Touch 公众号/视频号卡片点击弹出 QR 码 modal（纯 CSS/JS，支持 ESC/遮罩关闭）
+- `feat` About 页底部 CTA 改为公众号+视频号双二维码并排布局
+- `deploy` 1302d44 pushed → Vercel
+
 ### 2026-03-11
 
 - `feat` 封面脚本重写 v2 — Source Han Serif SemiBold 字体，双线边框+珊瑚色装饰，900×383px

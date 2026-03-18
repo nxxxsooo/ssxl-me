@@ -10,62 +10,137 @@ const videos = allVideos.sort((a, b) => {
     return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
 });
 
-function formatDate(date: Date) {
-    return date.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.');
-}
+// Extract all unique tags
+const allTags = Array.from(
+    new Set(videos.flatMap(v => v.data.tags || []))
+).sort();
+
+// Gradient palette for thumbnails
+const gradients = [
+    'linear-gradient(135deg, #E8836B 0%, #D46A52 100%)',
+    'linear-gradient(135deg, #D4A574 0%, #C4956A 100%)',
+    'linear-gradient(135deg, #B8967A 0%, #A6856E 100%)',
+    'linear-gradient(135deg, #C9887A 0%, #B07A6E 100%)',
+    'linear-gradient(135deg, #D9A894 0%, #C49888 100%)',
+];
 ---
 
 <Layout title="视频" description="分享思考与生活点滴的视频空间。">
     <main class="max-w-4xl mx-auto px-4 md:px-6 py-12 md:py-16 overflow-x-hidden">
         <header class="mb-24">
             <h1 class="font-serif text-4xl md:text-6xl font-light tracking-tight leading-none mb-12">视频</h1>
-            
-            <!-- Channel QR Card -->
-            <section class="p-8 bg-stone-50 border border-stone-200 flex flex-col md:flex-row items-center gap-8">
-                <img src="/images/channels-qr.jpg" alt="关注视频号" class="w-32 h-32 object-contain" width="128" height="128" />
-                <div class="text-center md:text-left">
-                    <h4 class="font-serif text-xl mb-2">关注视频号</h4>
-                    <p class="text-stone-600 leading-relaxed">获取更多视频更新，扫码关注施施小洛的视频号。</p>
-                </div>
-            </section>
         </header>
 
         <section id="videos">
-            <div class="flex items-center justify-between mb-16 border-b border-stone-200 pb-4">
+            <div class="flex items-center justify-between mb-6 border-b border-stone-200 pb-4">
                 <h2 class="font-serif text-2xl uppercase tracking-widest">精选视频</h2>
-                <span class="text-stone-400 text-sm">{new Date().getFullYear()}</span>
+                <span class="text-stone-400 text-sm">{new Date().getFullYear()} · {videos.length} 个视频</span>
+            </div>
+
+            <!-- Tag Filter Bar -->
+            <div class="mb-8 overflow-x-auto">
+                <div class="flex gap-2 py-2" id="tag-filters">
+                    <button 
+                        class="tag-filter-btn active whitespace-nowrap bg-brand-coral text-white text-[11px] px-3 py-1 rounded-full transition-colors"
+                        data-tag=""
+                    >
+                        全部
+                    </button>
+                    {allTags.map(tag => (
+                        <button 
+                            class="tag-filter-btn whitespace-nowrap border border-stone-300 text-stone-500 text-[11px] px-3 py-1 rounded-full hover:border-brand-coral hover:text-brand-coral transition-colors"
+                            data-tag={tag}
+                        >
+                            {tag}
+                        </button>
+                    ))}
+                </div>
             </div>
 
             <div class="video-list">
-                {videos.map((video) => (
-                    <a href={`https://www.douyin.com/video/${video.data.douyinId}`} target="_blank" rel="noopener" class="video-item group">
-                        <div class="video-item-left">
-                            <div class="video-item-icon">
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-                                    <path d="M8 5v14l11-7z"/>
+                {videos.map((video, index) => {
+                    const gradientIndex = index % gradients.length;
+                    const tags = video.data.tags || [];
+                    return (
+                        <a 
+                            href={`https://www.douyin.com/video/${video.data.douyinId}`} 
+                            target="_blank" 
+                            rel="noopener" 
+                            class="video-item group"
+                            data-tags={tags.join(',')}
+                        >
+                            <div class="video-item-left">
+                                <div class="video-item-thumbnail" style={`background: ${gradients[gradientIndex]}`}>
+                                    <div class="video-item-play-icon">
+                                        <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12">
+                                            <path d="M8 5v14l11-7z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-item-body">
+                                <div class="video-item-header">
+                                    <h3 class="video-item-title">
+                                        {video.data.pinned && <span class="video-item-pin">置顶</span>}
+                                        {video.data.title}
+                                    </h3>
+                                </div>
+                                {tags.length > 0 && (
+                                    <div class="video-item-tags">
+                                        {tags.map(tag => (
+                                            <span class="video-item-tag">{tag}</span>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                            <div class="video-item-arrow">
+                                <span class="video-item-douyin-label">抖音</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                        </div>
-                        <div class="video-item-body">
-                            <div class="video-item-header">
-                                <h3 class="video-item-title">
-                                    {video.data.pinned && <span class="video-item-pin">置顶</span>}
-                                    {video.data.title}
-                                </h3>
-                                <time class="video-item-date" datetime={video.data.pubDate.toISOString()}>
-                                    {formatDate(video.data.pubDate)}
-                                </time>
-                            </div>
-                            <p class="video-item-desc">{video.data.description}</p>
-                        </div>
-                        <div class="video-item-arrow">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
-                                <path d="M7 17L17 7M17 7H7M17 7V17" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                    </a>
-                ))}
+                        </a>
+                    );
+                })}
             </div>
+
+            <!-- Channel QR Card (moved below video list) -->
+            <section class="mt-16 p-6 bg-stone-50 border border-stone-200 flex items-center gap-6">
+                <img src="/images/channels-qr.jpg" alt="关注视频号" class="w-24 h-24 object-contain" width="96" height="96" />
+                <div>
+                    <p class="text-stone-600 text-sm">关注视频号，获取更多视频更新</p>
+                    <p class="font-serif text-brand-coral mt-1">施施小洛</p>
+                </div>
+            </section>
         </section>
     </main>
+
+    <script>
+        // Tag filtering
+        const filterBtns = document.querySelectorAll('.tag-filter-btn');
+        const videoItems = document.querySelectorAll('.video-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-brand-coral', 'text-white');
+                    b.classList.add('border', 'border-stone-300', 'text-stone-500');
+                });
+                btn.classList.remove('border', 'border-stone-300', 'text-stone-500');
+                btn.classList.add('active', 'bg-brand-coral', 'text-white');
+
+                // Filter videos
+                const selectedTag = btn.getAttribute('data-tag');
+                videoItems.forEach(item => {
+                    const itemTags = item.getAttribute('data-tags') || '';
+                    if (!selectedTag || itemTags.split(',').includes(selectedTag)) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
 </Layout>
