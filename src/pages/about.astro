@@ -183,18 +183,18 @@ import Layout from '../layouts/Layout.astro';
                     </a>
                 </div>
                 
-                <div class="border border-stone-200 rounded-lg p-6">
+                <div class="border border-stone-200 rounded-lg p-6 hover:border-brand-coral transition-colors cursor-pointer" data-qr-trigger="wechat">
                     <div class="flex flex-col items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
                             <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
                         </svg>
                         <span class="font-medium text-sm">公众号</span>
                         <span class="text-stone-400 text-xs mt-1">施施小洛</span>
-                        <span class="text-stone-400 text-[10px] mt-1">微信搜索</span>
+                        <span class="text-brand-coral text-[10px] mt-1">点击查看二维码</span>
                     </div>
                 </div>
                 
-                <div class="border border-stone-200 rounded-lg p-6">
+                <div class="border border-stone-200 rounded-lg p-6 hover:border-brand-coral transition-colors cursor-pointer" data-qr-trigger="channels">
                     <div class="flex flex-col items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
                             <polygon points="23 7 16 12 23 17 23 7"/>
@@ -202,7 +202,7 @@ import Layout from '../layouts/Layout.astro';
                         </svg>
                         <span class="font-medium text-sm">视频号</span>
                         <span class="text-stone-400 text-xs mt-1">施施小洛</span>
-                        <span class="text-stone-400 text-[10px] mt-1">微信搜索</span>
+                        <span class="text-brand-coral text-[10px] mt-1">点击查看二维码</span>
                     </div>
                 </div>
             </div>
@@ -299,21 +299,83 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- CTA -->
         <section class="border-t border-stone-200 pt-16">
-            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-                <img src="/images/wechat-qr.jpg" alt="施施小洛公众号二维码" class="w-40 h-40 object-contain" />
-                <div class="text-center md:text-left">
-                    <h3 class="font-serif text-2xl font-light mb-3">关注公众号「施施小洛」</h3>
-                    <p class="text-stone-500 font-light leading-relaxed">
-                        关系心理学、女性成长、出版圈观察。<br class="hidden md:block" />
-                        犀利洞察 + 实用建议，每天一篇。
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="flex flex-col items-center text-center">
+                    <img src="/images/wechat-qr.jpg" alt="施施小洛公众号二维码" class="w-36 h-36 object-contain mb-4" />
+                    <h3 class="font-serif text-xl font-light mb-2">关注公众号</h3>
+                    <p class="text-stone-500 font-light text-sm leading-relaxed">
+                        关系心理学、女性成长、出版圈观察。<br/>犀利洞察 + 实用建议，每天一篇。
+                    </p>
+                </div>
+                <div class="flex flex-col items-center text-center">
+                    <img src="/images/channels-qr.jpg" alt="施施小洛视频号二维码" class="w-36 h-36 object-contain mb-4" />
+                    <h3 class="font-serif text-xl font-light mb-2">关注视频号</h3>
+                    <p class="text-stone-500 font-light text-sm leading-relaxed">
+                        短视频分享思考与生活点滴。<br/>扫码关注，不错过每一期更新。
                     </p>
                 </div>
             </div>
         </section>
 
+        <!-- QR Modal -->
+        <div id="qr-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm" role="dialog" aria-modal="true">
+            <div class="bg-white rounded-2xl p-8 max-w-xs w-full mx-4 text-center shadow-xl relative">
+                <button id="qr-modal-close" class="absolute top-3 right-3 text-stone-400 hover:text-stone-600 transition-colors" aria-label="关闭">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+                <img id="qr-modal-img" src="" alt="" class="w-48 h-48 object-contain mx-auto mb-4" />
+                <p id="qr-modal-title" class="font-serif text-lg"></p>
+                <p id="qr-modal-desc" class="text-stone-400 text-sm mt-1"></p>
+            </div>
+        </div>
+
     </main>
     
     <script>
+        // QR Modal
+        const qrModal = document.getElementById('qr-modal')!;
+        const qrImg = document.getElementById('qr-modal-img') as HTMLImageElement;
+        const qrTitle = document.getElementById('qr-modal-title')!;
+        const qrDesc = document.getElementById('qr-modal-desc')!;
+        const qrClose = document.getElementById('qr-modal-close')!;
+
+        const qrData: Record<string, { src: string; alt: string; title: string; desc: string }> = {
+            wechat: { src: '/images/wechat-qr.jpg', alt: '施施小洛公众号二维码', title: '关注公众号「施施小洛」', desc: '微信扫码关注' },
+            channels: { src: '/images/channels-qr.jpg', alt: '施施小洛视频号二维码', title: '关注视频号「施施小洛」', desc: '微信扫码关注' },
+        };
+
+        function openQrModal(type: string) {
+            const d = qrData[type];
+            if (!d) return;
+            qrImg.src = d.src;
+            qrImg.alt = d.alt;
+            qrTitle.textContent = d.title;
+            qrDesc.textContent = d.desc;
+            qrModal.classList.remove('hidden');
+            qrModal.classList.add('flex');
+        }
+
+        function closeQrModal() {
+            qrModal.classList.add('hidden');
+            qrModal.classList.remove('flex');
+        }
+
+        document.querySelectorAll('[data-qr-trigger]').forEach(el => {
+            el.addEventListener('click', () => {
+                const type = (el as HTMLElement).dataset.qrTrigger!;
+                openQrModal(type);
+            });
+        });
+
+        qrClose.addEventListener('click', closeQrModal);
+        qrModal.addEventListener('click', (e) => {
+            if (e.target === qrModal) closeQrModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !qrModal.classList.contains('hidden')) closeQrModal();
+        });
+
+        // Consultation Form
         const form = document.getElementById('consultation-form');
         const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
         const formMessage = document.getElementById('form-message')!;
