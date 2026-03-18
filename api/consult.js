@@ -5,7 +5,7 @@ const FEISHU_APP_ID = 'cli_a92bdde2543a9bce';
 const FEISHU_APP_SECRET = 'db4GpQjt1eTOH8zythLfadooKqOuHFp7';
 const BITABLE_APP_TOKEN = 'XOVYbguNXaQPwsst7jQcyHr5nzy';
 const BITABLE_TABLE_ID = 'tblybvFx5LSxXkZA';
-const NOTIFY_OPEN_ID = 'ou_fe7b2ad06b228d5007f1d82cb75ee176';
+const NOTIFY_CHAT_ID = 'oc_4b280f36e2a88d1c8c1dcb6b68f06db5';
 
 export default async function handler(req, res) {
   // Only allow POST
@@ -94,14 +94,14 @@ async function sendNotification(token, data) {
     '👉 https://mingjian.feishu.cn/base/XOVYbguNXaQPwsst7jQcyHr5nzy',
   ].filter(Boolean).join('\n');
 
-  await fetch('https://open.larksuite.com/open-apis/im/v1/messages?receive_id_type=open_id', {
+  await fetch('https://open.larksuite.com/open-apis/im/v1/messages?receive_id_type=chat_id', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      receive_id: NOTIFY_OPEN_ID,
+      receive_id: NOTIFY_CHAT_ID,
       msg_type: 'text',
       content: JSON.stringify({ text: lines }),
     }),
