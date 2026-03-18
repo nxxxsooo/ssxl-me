@@ -22,8 +22,10 @@ export default async function handler(req, res) {
     }
 
     // Step 1: Get Tenant Access Token
+    // Use larksuite.com (international endpoint) — Vercel functions run in US,
+    // open.feishu.cn is China-only and unreachable from US servers
     const tokenRes = await fetch(
-      'https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal',
+      'https://open.larksuite.com/open-apis/auth/v3/tenant_access_token/internal',
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -50,7 +52,7 @@ export default async function handler(req, res) {
     if (description) fields['项目描述'] = description;
 
     const recordRes = await fetch(
-      `https://open.feishu.cn/open-apis/bitable/v1/apps/${BITABLE_APP_TOKEN}/tables/${BITABLE_TABLE_ID}/records`,
+      `https://open.larksuite.com/open-apis/bitable/v1/apps/${BITABLE_APP_TOKEN}/tables/${BITABLE_TABLE_ID}/records`,
       {
         method: 'POST',
         headers: {
@@ -92,7 +94,7 @@ async function sendNotification(token, data) {
     '👉 https://mingjian.feishu.cn/base/XOVYbguNXaQPwsst7jQcyHr5nzy',
   ].filter(Boolean).join('\n');
 
-  await fetch('https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=open_id', {
+  await fetch('https://open.larksuite.com/open-apis/im/v1/messages?receive_id_type=open_id', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
