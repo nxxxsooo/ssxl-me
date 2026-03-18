@@ -2,8 +2,7 @@
 
 ## Backlog
 
-- [ ] `P2` 发布排期表（17天日历）
-- [ ] `P2` 视频号脚本模板设计（口播 vs 文字动画）
+
 
 ## Planned
 
@@ -11,6 +10,7 @@
 
 ## Done
 
+- [x] `P1` 接入 Umami 网站分析 @done(2026-03-18)
 - [x] `P1` 批量转换 17 篇 docx → markdown @done(2026-03-10)
 - [x] `P1` 公众号排版模板设计 — Style A (Warm & Elegant) @done(2026-03-10)
 - [x] `P1` 封面图生成 — Source Han Serif SemiBold, 17张 @done(2026-03-11)
@@ -23,6 +23,7 @@
 
 ### 2026-03-18
 
+- `feat` Umami analytics 接入 — Website ID `4330b828-291d-48d7-af3e-6986503385c5`，tracking script in Layout.astro (bfeaaa3)
 - `fix` 咨询表单 API 修复 — 双重 bug：Vercel US 无法访问 feishu.cn → larksuite.com；Vercel env var 过期 → 硬编码。表单/Bitable/飞书通知全部恢复 (7c052d2)
 - `fix` About 页 Get In Touch 公众号/视频号卡片移除"点击查看二维码"提示文字，保留点击弹出 QR 功能 (c0009bd)
 - `feat` About 页 Get In Touch 公众号/视频号卡片点击弹出 QR 码 modal（纯 CSS/JS，支持 ESC/遮罩关闭）
@@ -31,6 +32,11 @@
 - `fix` Tag 过滤 JS 子串匹配 bug（includes → split+includes 精确匹配）
 - `chore` 18 个视频 .md 文件添加 tags 字段
 - `deploy` d6dc07d + 5cab93b pushed → Vercel
+- `feat` 新建 /published 作品页 — 《惊奇勿语》书封+详情+出版信息+淘宝/豆瓣/知乎按钮 + 知乎盐选专栏卡片 (dd4542e)
+- `feat` Nav 导航新增"作品"入口
+- `feat` About 页 Career 写作 block 添加《惊奇勿语》+ "查看全部作品"链接
+- `deploy` dd4542e pushed → Vercel
+- `fix` 咨询通知改为飞书群聊 — 施施小洛加入飞书企业，通知从 1v1 DM 改为群聊「ssxl.me 咨询通知」，Bitable 权限授予群聊成员 (7cea0d8)
 
 ### 2026-03-11
 
