@@ -1,10 +1,10 @@
 // Vercel Serverless Function — proxies form submission to Feishu Bitable
 // Keeps app_secret server-side and avoids CORS issues
 
-const FEISHU_APP_ID = process.env.FEISHU_APP_ID || 'cli_a92bdde2543a9bce';
-const FEISHU_APP_SECRET = process.env.FEISHU_APP_SECRET || 'db4GpQjt1eTOH8zythLfadooKqOuHFp7';
-const BITABLE_APP_TOKEN = process.env.FEISHU_BITABLE_APP_TOKEN || 'XOVYbguNXaQPwsst7jQcyHr5nzy';
-const BITABLE_TABLE_ID = process.env.FEISHU_BITABLE_TABLE_ID || 'tblybvFx5LSxXkZA';
+const FEISHU_APP_ID = 'cli_a92bdde2543a9bce';
+const FEISHU_APP_SECRET = 'db4GpQjt1eTOH8zythLfadooKqOuHFp7';
+const BITABLE_APP_TOKEN = 'XOVYbguNXaQPwsst7jQcyHr5nzy';
+const BITABLE_TABLE_ID = 'tblybvFx5LSxXkZA';
 const NOTIFY_OPEN_ID = 'ou_fe7b2ad06b228d5007f1d82cb75ee176';
 
 export default async function handler(req, res) {
@@ -39,15 +39,7 @@ export default async function handler(req, res) {
 
     if (!tokenData.tenant_access_token) {
       console.error('Failed to get TAT:', tokenData);
-      return res.status(500).json({
-        error: '服务暂时不可用',
-        debug: tokenData,
-        env_check: {
-          has_app_id: !!process.env.FEISHU_APP_ID,
-          has_app_secret: !!process.env.FEISHU_APP_SECRET,
-          app_id_prefix: (process.env.FEISHU_APP_ID || FEISHU_APP_ID).substring(0, 8),
-        },
-      });
+      return res.status(500).json({ error: '服务暂时不可用' });
     }
 
     // Step 2: Create record in Bitable
