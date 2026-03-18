@@ -39,7 +39,15 @@ export default async function handler(req, res) {
 
     if (!tokenData.tenant_access_token) {
       console.error('Failed to get TAT:', tokenData);
-      return res.status(500).json({ error: '服务暂时不可用', debug: tokenData });
+      return res.status(500).json({
+        error: '服务暂时不可用',
+        debug: tokenData,
+        env_check: {
+          has_app_id: !!process.env.FEISHU_APP_ID,
+          has_app_secret: !!process.env.FEISHU_APP_SECRET,
+          app_id_prefix: (process.env.FEISHU_APP_ID || FEISHU_APP_ID).substring(0, 8),
+        },
+      });
     }
 
     // Step 2: Create record in Bitable
