@@ -1,0 +1,140 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="作品" description="施施小洛的已出版作品——《惊奇勿语》实体书、知乎盐选专栏。">
+    <main class="max-w-5xl mx-auto px-6 py-12 md:py-24">
+
+        <!-- Page Header -->
+        <header class="mb-24 md:mb-32">
+            <p class="text-brand-coral uppercase tracking-widest text-xs font-medium mb-4">Published Works</p>
+            <h1 class="font-serif text-4xl md:text-6xl font-light leading-tight">作品</h1>
+        </header>
+
+        <!-- Featured Book -->
+        <section class="mb-24 md:mb-32">
+            <div class="flex flex-col md:grid md:grid-cols-12 gap-12 md:gap-16 items-start">
+                <!-- Book Cover -->
+                <div class="md:col-span-4">
+                    <div class="aspect-[3/4] w-full max-w-[280px] mx-auto md:mx-0 overflow-hidden rounded-lg shadow-lg">
+                        <img
+                            src="/images/book-jqwy.jpg"
+                            alt="《惊奇勿语》封面"
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                    </div>
+                </div>
+
+                <!-- Book Info -->
+                <div class="md:col-span-8">
+                    <p class="text-brand-coral uppercase tracking-widest text-xs font-medium mb-4">悬疑推理 · 2024</p>
+                    <h2 class="font-serif text-3xl md:text-4xl font-light mb-3">惊奇勿语</h2>
+                    <p class="text-stone-400 text-sm mb-8">一个悬疑圈女编辑经历的灵异事件</p>
+
+                    <div class="text-stone-600 leading-relaxed font-light space-y-4 mb-10">
+                        <p>
+                            买鬼车、住凶宅、玩最容易招鬼的四角游戏……为啥悬疑圈的大神们净带着我干这些危险的事儿？
+                        </p>
+                        <p>
+                            我，悬疑圈第一美女编辑，人称洛总。胆子不大，但好奇心旺盛。最主要的，我有双官双印的神奇命格，据说能驱邪挡煞，守护身边的一切人和事物——简称「吉祥物」。
+                        </p>
+                        <p>
+                            尘总陆续带我认识了悬疑圈的大神们，有海派绅士随风，有著名光头悬疑编剧庄神，还有秦法医，还有在刑侦大学从事教学工作的雷教授……自此，这帮悬疑作家干什么危险的事儿都爱带着我。
+                        </p>
+                        <p>
+                            在经历过一系列说不清道不明的诡异事件之后，世界在我的面前逐渐展现出了我原本从未见过的维度。那时候，我还不知道，这些看似独立的玄学事件的背后，隐隐串着一根线。
+                        </p>
+                        <p>
+                            他们带着我在地图上打卡，并不是单纯拿我当吉祥物，而是想救我一命。
+                        </p>
+                        <p class="text-stone-400 text-sm italic">
+                            * 别问我真假，玄学的事情，真真假假，信则有，不信也要尊重。
+                        </p>
+                    </div>
+
+                    <!-- Book Meta -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 text-sm">
+                        <div>
+                            <p class="text-stone-400 text-xs uppercase tracking-wider mb-1">出版</p>
+                            <p class="text-stone-600 font-light">三月兔亭文化</p>
+                        </div>
+                        <div>
+                            <p class="text-stone-400 text-xs uppercase tracking-wider mb-1">页数</p>
+                            <p class="text-stone-600 font-light">368 页</p>
+                        </div>
+                        <div>
+                            <p class="text-stone-400 text-xs uppercase tracking-wider mb-1">ISBN</p>
+                            <p class="text-stone-600 font-light">978-988-7040-02-6</p>
+                        </div>
+                        <div>
+                            <p class="text-stone-400 text-xs uppercase tracking-wider mb-1">定价</p>
+                            <p class="text-stone-600 font-light">¥43.00</p>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap gap-4">
+                        <a
+                            href="https://detail.tmall.com/item.htm?id=773387641647"
+                            target="_blank"
+                            rel="noopener"
+                            class="inline-flex items-center gap-2 bg-brand-coral text-white px-6 py-3 rounded font-medium text-sm hover:opacity-90 transition-opacity"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                            淘宝购买
+                        </a>
+                        <a
+                            href="https://book.douban.com/subject/36704512/"
+                            target="_blank"
+                            rel="noopener"
+                            class="inline-flex items-center gap-2 border border-stone-300 text-stone-600 px-6 py-3 rounded font-medium text-sm hover:border-brand-coral hover:text-brand-coral transition-colors"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                            豆瓣页面
+                        </a>
+                        <a
+                            href="https://www.zhihu.com/xen/market/remix/paid_column/1398667318944235520"
+                            target="_blank"
+                            rel="noopener"
+                            class="inline-flex items-center gap-2 border border-stone-300 text-stone-600 px-6 py-3 rounded font-medium text-sm hover:border-brand-coral hover:text-brand-coral transition-colors"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                            知乎盐选专栏
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zhihu Column -->
+        <section class="mb-24 md:mb-32">
+            <p class="text-brand-coral uppercase tracking-widest text-xs font-medium mb-12">Online</p>
+            <div class="border border-stone-200 rounded-lg p-8 md:p-10 hover:border-brand-coral transition-colors">
+                <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-xs font-medium uppercase tracking-widest text-white bg-blue-500 px-2 py-0.5 rounded">知乎盐选</span>
+                            <span class="text-stone-400 text-xs">付费专栏</span>
+                        </div>
+                        <h3 class="font-serif text-xl md:text-2xl font-light mb-3">惊奇勿语：一个悬疑圈女编辑经历的灵异事件</h3>
+                        <p class="text-stone-500 font-light leading-relaxed">
+                            《惊奇勿语》知乎盐选专栏版。以第一人称视角讲述悬疑圈女编辑"洛总"的灵异经历——苏州诡宅、红楼疑云、四角游戏、鬼车……每一个看似独立的玄学事件背后，隐隐串着一根线。
+                        </p>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a
+                            href="https://www.zhihu.com/xen/market/remix/paid_column/1398667318944235520"
+                            target="_blank"
+                            rel="noopener"
+                            class="inline-flex items-center gap-2 border border-stone-300 text-stone-600 px-5 py-2.5 rounded font-medium text-sm hover:border-brand-coral hover:text-brand-coral transition-colors whitespace-nowrap"
+                        >
+                            前往知乎
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</Layout>

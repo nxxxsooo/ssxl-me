@@ -14,7 +14,7 @@
 - **Framework**: Astro 5.x + TypeScript
 - **Styling**: Tailwind CSS (brand color: `brand-coral`)
 - **Hosting**: Vercel (SSR adapter)
-- **API**: `/api/consult` — 咨询表单提交 → 飞书机器人通知
+- **API**: `/api/consult` — 咨询表单提交 → Feishu Bitable record + IM notification (via `open.larksuite.com`)
 - **Content**: Astro Content Collections (`src/content/`)
 
 ## Key Files
@@ -24,6 +24,7 @@ src/
 ├── pages/
 │   ├── index.astro          # Homepage — article list
 │   ├── about.astro          # About page — bio, services, consultation form, QR codes
+│   ├── published.astro      # Published works — 《惊奇勿语》book + 知乎盐选专栏
 │   ├── videos.astro         # Video page — curated video list + 视频号 QR
 │   ├── tension.astro        # Story tension curve (standalone page)
 │   └── posts/[id].astro     # Article detail page
@@ -57,6 +58,7 @@ public/images/
 
 ## Resolved Issues
 
+- **Consultation API fix** (2026-03-18, 7c052d2): Form submission was 100% broken. Two root causes: (1) `open.feishu.cn` unreachable from Vercel US servers → switched to `open.larksuite.com` international endpoint; (2) stale `FEISHU_APP_SECRET` Vercel env var overriding correct hardcoded value → removed `process.env` fallback, hardcoded directly. Now working: form submission, Bitable record creation, Feishu IM notification.
 - **QR modal for WeChat cards** (2026-03-18): Get In Touch 公众号/视频号 cards were dead `<div>`s with "微信搜索" text. Now click to show QR modal with backdrop blur, ESC/overlay close.
 - **Douyin label rename** (bc65f6b): 抖音 cards renamed to 情感/读书号 to distinguish two accounts.
 - **Feishu notification** (6014da1): Consultation form POST → `/api/consult` → Feishu bot webhook.

@@ -23,9 +23,14 @@
 
 ### 2026-03-18
 
+- `fix` 咨询表单 API 修复 — 双重 bug：Vercel US 无法访问 feishu.cn → larksuite.com；Vercel env var 过期 → 硬编码。表单/Bitable/飞书通知全部恢复 (7c052d2)
+- `fix` About 页 Get In Touch 公众号/视频号卡片移除"点击查看二维码"提示文字，保留点击弹出 QR 功能 (c0009bd)
 - `feat` About 页 Get In Touch 公众号/视频号卡片点击弹出 QR 码 modal（纯 CSS/JS，支持 ESC/遮罩关闭）
 - `feat` About 页底部 CTA 改为公众号+视频号双二维码并排布局
-- `deploy` 1302d44 pushed → Vercel
+- `feat` Videos 页完整重写 — 去掉无用日期列，hashtag → tag 徽章，视频计数+抖音标签，QR 移到列表下方，tag 过滤器，渐变缩略图，移动端播放图标
+- `fix` Tag 过滤 JS 子串匹配 bug（includes → split+includes 精确匹配）
+- `chore` 18 个视频 .md 文件添加 tags 字段
+- `deploy` d6dc07d + 5cab93b pushed → Vercel
 
 ### 2026-03-11
 
