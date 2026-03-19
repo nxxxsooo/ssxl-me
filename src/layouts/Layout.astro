@@ -6,9 +6,13 @@ interface Props {
 	title: string;
 	description?: string;
 	ogImage?: string;
+	ogType?: string;
 }
 
-const { title, description = '分享生活、思考与成长的个人空间。', ogImage } = Astro.props;
+const defaultDescription = '施施小洛（SSxL）——作家、出版策划人、关系心理学创作者。曾任《今古传奇》《悬疑世界》杂志编辑，浦睿文化图书策划人，策划出版多部超级畅销书，累计销量过千万册。代表作《桐花中路私立协济医院怪谈》销量突破百万。擅长挖掘新人作者、操盘千万级 IP、打造从内容到影视的全产业链。如今专注于关系心理学领域的深度内容创作，用犀利洞察与实用建议，帮助读者解构复杂的亲密关系、识别有毒关系模式、建立健康的情感认知，在成长中找到真正的自我力量。';
+const { title, description = defaultDescription, ogImage, ogType = 'website' } = Astro.props;
+const ogImageUrl = ogImage?.startsWith('http') ? ogImage : `https://ssxl.me${ogImage || '/images/og-default.png'}`;
+const pageTitle = title === '首页' ? '施施小洛 — 作家 · 出版策划人 · 关系心理学创作者' : `${title} | 施施小洛`;
 ---
 
 <!doctype html>
@@ -16,26 +20,35 @@ const { title, description = '分享生活、思考与成长的个人空间。',
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>{title} | 施施小洛</title>
+		<title>{pageTitle}</title>
         
         <!-- SEO -->
         <meta name="description" content={description}>
-        <meta name="author" content="施施小洛">
+        <meta name="author" content="施施小洛 (SSxL)">
         <link rel="canonical" href={`https://ssxl.me${Astro.url.pathname}`}>
 
         <!-- Open Graph -->
-        <meta property="og:type" content="website">
+        <meta property="og:type" content={ogType}>
         <meta property="og:url" content={`https://ssxl.me${Astro.url.pathname}`}>
-        <meta property="og:title" content={`${title} | 施施小洛`}>
+        <meta property="og:title" content={pageTitle}>
         <meta property="og:description" content={description}>
-        <meta property="og:image" content={ogImage || 'https://ssxl.me/images/og-default.png'}>
+        <meta property="og:image" content={ogImageUrl}>
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
         <meta property="og:locale" content="zh_CN">
+        <meta property="og:site_name" content="施施小洛 SSxL">
+
+        <!-- Author / Profile (LinkedIn) -->
+        <meta property="article:author" content="施施小洛">
+        <meta property="profile:first_name" content="施施小洛">
+        <meta property="profile:username" content="ssxl">
 
         <!-- Twitter Card -->
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content={`${title} | 施施小洛`}>
+        <meta name="twitter:title" content={pageTitle}>
         <meta name="twitter:description" content={description}>
-        <meta name="twitter:image" content={ogImage || 'https://ssxl.me/images/og-default.png'}>
+        <meta name="twitter:image" content={ogImageUrl}>
+        <meta name="twitter:creator" content="@ssxl">
 
         <!-- Favicon -->
         <link rel="icon" type="image/svg+xml" href="/favicon.svg">

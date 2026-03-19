@@ -6,7 +6,7 @@ const allPosts = await getCollection('posts');
 const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<Layout title="首页" description="分享生活、思考与成长的个人空间。">
+<Layout title="首页">
     <main class="max-w-7xl mx-auto px-6 py-12 md:py-24">
         <!-- Hero Section -->
         <header class="flex flex-col-reverse md:grid md:grid-cols-12 gap-12 items-center mb-32">
