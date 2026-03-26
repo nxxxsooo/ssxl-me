@@ -42,8 +42,17 @@ public/images/
 ├── wechat-qr.jpg            # 公众号二维码
 ├── channels-qr.jpg          # 视频号二维码
 ├── portrait.jpg             # About page portrait
-└── covers/                  # Article cover images
+└── covers/                  # Article cover images (WebP, converted from hires PNG)
 ```
+
+## Cover Image Pipeline
+
+- **Hires source**: `Tuning/ssxl/assets/covers-web-hires/*.png` (2048×880 lossless PNG, ~52MB total)
+- **Web publish**: `public/images/covers/*.webp` (WebP q80, ~1.8MB total)
+- **Convert script**: `Tuning/ssxl/scripts/publish-covers.sh` (requires `cwebp` via `brew install webp`)
+- **Usage**: `./publish-covers.sh` (all) or `./publish-covers.sh 5 12 29` (specific IDs)
+- **Frontmatter**: `cover: "/images/covers/{id}.webp"` in `src/content/posts/{id}.md`
+- **Rule**: Never commit raw PNG to ssxl-me. Always convert via script first.
 
 ## Patterns & Conventions
 
@@ -64,3 +73,4 @@ public/images/
 - **Douyin label rename** (bc65f6b): 抖音 cards renamed to 情感/读书号 to distinguish two accounts.
 - **Feishu notification** (6014da1): Consultation form POST → `/api/consult` → Feishu bot webhook.
 - **Notification → group chat** (2026-03-18, 7cea0d8): Switched from 1v1 DM to group chat `oc_4b280f36e2a88d1c8c1dcb6b68f06db5` ("ssxl.me 咨询通知"). 施施小洛 added to personal Feishu corp — group chat enables multi-user notifications + Bitable full_access granted to group.
+- **Cover image compression** (2026-03-19): Converted 29 cover images from PNG to WebP q80. Total size 52MB → 1.8MB (-97%). Hires originals preserved in `Tuning/ssxl/assets/covers-web-hires/`. Conversion script: `Tuning/ssxl/scripts/publish-covers.sh`.

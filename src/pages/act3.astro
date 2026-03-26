@@ -1,0 +1,777 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="第三幕闭环设计" description="故事工程师第四课：如何打造令人满足的高潮与结局">
+<style>
+  /* ====== Animations ====== */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.02); }
+  }
+  
+  @keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+  }
+  
+  .fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  
+  /* ====== Section Styling ====== */
+  .section { margin-bottom: 5rem; }
+  @media (min-width: 768px) { .section { margin-bottom: 7rem; } }
+  
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--color-brand-text);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  @media (min-width: 768px) { .section-title { font-size: 2.25rem; } }
+  
+  .section-subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: #78716c;
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  
+  /* ====== Hero Section ====== */
+  .hero-badge {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-brand-coral);
+    border: 1px solid var(--color-brand-coral);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-formula {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    line-height: 1.8;
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(232, 131, 107, 0.08) 0%, rgba(251, 247, 244, 0.5) 100%);
+    border: 1px solid rgba(232, 131, 107, 0.2);
+    border-radius: 12px;
+    margin-top: 2rem;
+  }
+  @media (min-width: 768px) { .hero-formula { font-size: 1.375rem; padding: 2.5rem; } }
+  
+  .formula-highlight {
+    color: var(--color-brand-coral);
+    font-weight: 600;
+  }
+  
+  /* ====== Filter Diagnostic Section ====== */
+  .filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 768px) { .filter-container { gap: 1.5rem; } }
+  
+  .filter-layer {
+    background: #fff;
+    border: 1px solid #f2e9e4;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .filter-layer:hover {
+    border-color: var(--color-brand-coral);
+    box-shadow: 0 4px 12px rgba(232, 131, 107, 0.1);
+  }
+  
+  .filter-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    background: var(--color-brand-bg);
+  }
+  
+  .filter-summary::-webkit-details-marker { display: none; }
+  
+  .filter-title {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-brand-text);
+  }
+  
+  .filter-icon {
+    font-size: 1.5rem;
+    color: var(--color-brand-coral);
+    transition: transform 0.3s ease;
+  }
+  
+  details[open] .filter-icon { transform: rotate(180deg); }
+  
+  .filter-content {
+    padding: 0 1.5rem 1.5rem;
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  .filter-question {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: #78716c;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  
+  .filter-example {
+    background: rgba(232, 131, 107, 0.06);
+    border-left: 3px solid var(--color-brand-coral);
+    padding: 1rem 1.25rem;
+    border-radius: 0 8px 8px 0;
+    margin-top: 1rem;
+  }
+  
+  .filter-example-title {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-brand-coral);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+  
+  .filter-example-text {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    color: var(--color-brand-text);
+    line-height: 1.7;
+  }
+  
+  /* ====== Ending Patterns Grid ====== */
+  .patterns-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 640px) { .patterns-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .patterns-grid { grid-template-columns: repeat(3, 1fr); } }
+  
+  .pattern-card {
+    background: #fff;
+    border: 1px solid #f2e9e4;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .pattern-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-brand-coral), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .pattern-card:hover {
+    border-color: var(--color-brand-coral);
+    box-shadow: 0 8px 24px rgba(232, 131, 107, 0.12);
+    transform: translateY(-2px);
+  }
+  
+  .pattern-card:hover::before { opacity: 1; }
+  
+  .pattern-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  
+  .pattern-name {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-brand-text);
+    margin-bottom: 0.5rem;
+  }
+  
+  .pattern-desc {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: #78716c;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  
+  .pattern-case {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--color-brand-coral);
+    font-weight: 500;
+    background: rgba(232, 131, 107, 0.08);
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+    display: inline-block;
+  }
+  
+  /* ====== Checklist Section ====== */
+  .checklist-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+  
+  .checklist-category {
+    background: #fff;
+    border: 1px solid #f2e9e4;
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f2e9e4;
+  }
+  
+  .category-badge {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--color-brand-coral);
+    padding: 0.25rem 0.625rem;
+    border-radius: 6px;
+    letter-spacing: 0.05em;
+  }
+  
+  .category-title {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-brand-text);
+  }
+  
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+  
+  .checklist-item:last-child { margin-bottom: 0; }
+  
+  .checkbox-custom {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #d6d3cd;
+    border-radius: 6px;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    background: #fff;
+  }
+  
+  .checklist-item.checked .checkbox-custom {
+    background: var(--color-brand-coral);
+    border-color: var(--color-brand-coral);
+  }
+  
+  .checklist-item.checked .checkbox-custom::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  
+  .checklist-text {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--color-brand-text);
+    line-height: 1.6;
+    transition: color 0.2s ease;
+  }
+  
+  .checklist-item.checked .checklist-text {
+    color: #a8a29e;
+    text-decoration: line-through;
+  }
+  
+  .checklist-result {
+    margin-top: 2rem;
+    padding: 1.25rem;
+    border-radius: 10px;
+    text-align: center;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .result-warning {
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    color: #92400e;
+  }
+  
+  .result-ok {
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    color: #1e40af;
+  }
+  
+  .result-success {
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    color: #166534;
+  }
+  
+  /* ====== CTA Section ====== */
+  .cta-section {
+    background: linear-gradient(135deg, rgba(232, 131, 107, 0.08) 0%, rgba(251, 247, 244, 0.5) 100%);
+    border: 1px solid rgba(232, 131, 107, 0.2);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    margin-top: 3rem;
+  }
+  @media (min-width: 768px) { .cta-section { padding: 3.5rem 3rem; } }
+  
+  .cta-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-brand-text);
+    margin-bottom: 0.75rem;
+  }
+  @media (min-width: 768px) { .cta-title { font-size: 1.75rem; } }
+  
+  .cta-subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: #78716c;
+    margin-bottom: 2rem;
+  }
+  
+  .roadmap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .lesson-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .lesson-dot.done {
+    background: var(--color-brand-coral);
+    color: #fff;
+  }
+  
+  .lesson-dot.upcoming {
+    background: #f2e9e4;
+    color: #a8a29e;
+    border: 1px solid #e7e3de;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    background: var(--color-brand-coral);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 1rem 2.5rem;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .cta-button:hover {
+    background: #d97055;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(232, 131, 107, 0.3);
+  }
+  
+  .cta-author {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(232, 131, 107, 0.15);
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: #78716c;
+  }
+  
+  .cta-author strong {
+    color: var(--color-brand-text);
+    font-weight: 600;
+  }
+  
+  /* ====== Footer ====== */
+  .page-footer {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #f2e9e4;
+    margin-top: 4rem;
+  }
+  
+  .page-footer p {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: #a8a29e;
+  }
+  
+  .page-footer small {
+    color: #d6d3cd;
+    font-size: 0.75rem;
+  }
+</style>
+
+<main class="max-w-5xl mx-auto px-4 md:px-6 pt-12 pb-24">
+  
+  <!-- Section 1: Hero -->
+  <section class="section fade-in">
+    <div class="text-center">
+      <span class="hero-badge">故事工程师 · 第四课 / 共十课</span>
+      <h1 class="font-serif text-4xl md:text-5xl font-light tracking-wider mb-4 text-[#3D2B1F]">第三幕闭环设计</h1>
+      <p class="text-xl md:text-2xl text-stone-600 font-light mb-6">如何打造令人满足的高潮与结局</p>
+      <p class="text-stone-500 text-lg max-w-2xl mx-auto leading-relaxed">
+        第三幕不是"收尾"，而是"价值交付"的最高峰
+      </p>
+    </div>
+    
+    <div class="hero-formula fade-in delay-200">
+      <span class="formula-highlight">高潮</span>（外在冲突的最终对决）<br/>
+      + <span class="formula-highlight">结局</span>（内在冲突的最终解决）<br/>
+      + <span class="formula-highlight">情感缓冲</span>（情绪的平稳落地）<br/>
+      = <span class="formula-highlight">令人满足的故事闭环</span>
+    </div>
+  </section>
+  
+  <!-- Section 2: 高潮三重检验模型 -->
+  <section class="section fade-in delay-300">
+    <h2 class="section-title">高潮三重检验模型</h2>
+    <p class="section-subtitle">三层漏斗式诊断工具</p>
+    
+    <div class="filter-container">
+      <!-- Layer 1 -->
+      <details class="filter-layer" open>
+        <summary class="filter-summary">
+          <span class="filter-title">① 技能调用检验</span>
+          <span class="filter-icon">▼</span>
+        </summary>
+        <div class="filter-content">
+          <p class="filter-question">"主角是否动用了全部所学？"</p>
+          <p class="text-stone-700 text-sm leading-relaxed">
+            高潮不是天降奇迹，而是主角在整个故事中积累的技能、知识、人脉的总爆发。读者需要看到主角<strong>主动运用</strong>自己学到的东西，而不是被动等待救援。
+          </p>
+          <div class="filter-example">
+            <div class="filter-example-title">《肖申克的救赎》案例</div>
+            <div class="filter-example-text">
+              安迪的越狱不是偶然——他动用了：<strong>地质学知识</strong>（判断岩石结构）+ <strong>耐心</strong>（19 年挖掘）+ <strong>财务技能</strong>（帮狱警报税建立信任）+ <strong>友谊</strong>（瑞克提供工具）。所有技能在前文都有铺垫。
+            </div>
+          </div>
+        </div>
+      </details>
+      
+      <!-- Layer 2 -->
+      <details class="filter-layer">
+        <summary class="filter-summary">
+          <span class="filter-title">② 恐惧直面检验</span>
+          <span class="filter-icon">▼</span>
+        </summary>
+        <div class="filter-content">
+          <p class="filter-question">"高潮是否让主角直面最深恐惧？"</p>
+          <p class="text-stone-700 text-sm leading-relaxed">
+            真正的高潮不只是外在冲突的解决，更是主角<strong>内在恐惧的终极对决</strong>。读者需要看到主角克服心理障碍，完成内在成长。
+          </p>
+          <div class="filter-example">
+            <div class="filter-example-title">《肖申克的救赎》案例</div>
+            <div class="filter-example-text">
+              安迪最深的恐惧不是死亡，而是<strong>体制化</strong>——像老布一样失去独立生存能力。他选择越狱，不仅是追求自由，更是对"体制化"的终极反抗。爬过 500 码恶臭下水道，象征他彻底摆脱体制束缚。
+            </div>
+          </div>
+        </div>
+      </details>
+      
+      <!-- Layer 3 -->
+      <details class="filter-layer">
+        <summary class="filter-summary">
+          <span class="filter-title">③ 主题体现检验</span>
+          <span class="filter-icon">▼</span>
+        </summary>
+        <div class="filter-content">
+          <p class="filter-question">"主角的选择是否体现核心主题？"</p>
+          <p class="text-stone-700 text-sm leading-relaxed">
+            高潮时刻的选择，必须是故事主题的<strong>具象化表达</strong>。读者通过这个选择，理解作者想要传达的核心价值观。
+          </p>
+          <div class="filter-example">
+            <div class="filter-example-title">《肖申克的救赎》案例</div>
+            <div class="filter-example-text">
+              电影主题是<strong>"希望与自由"</strong>。安迪的选择完美体现：他本可以安分守己在监狱活下去，但选择冒险越狱——这是对"希望"的践行。他留给瑞克的话："希望是美好的，也许是人间至善"，直接点题。
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+  
+  <!-- Section 3: 五种结局模式 -->
+  <section class="section fade-in delay-300">
+    <h2 class="section-title">五种结局模式</h2>
+    <p class="section-subtitle">选择适合你故事的收尾方式</p>
+    
+    <div class="patterns-grid">
+      <!-- Pattern 1 -->
+      <div class="pattern-card">
+        <span class="pattern-icon">🔒</span>
+        <h3 class="pattern-name">闭环结局</h3>
+        <p class="pattern-desc">所有线索收拢，谜题完全解答，读者获得完整满足感</p>
+        <span class="pattern-case">案例：《东方快车谋杀案》</span>
+      </div>
+      
+      <!-- Pattern 2 -->
+      <div class="pattern-card">
+        <span class="pattern-icon">🌫️</span>
+        <h3 class="pattern-name">开放结局</h3>
+        <p class="pattern-desc">留下思考空间，让读者参与意义建构，余韵悠长</p>
+        <span class="pattern-case">案例：《盗梦空间》</span>
+      </div>
+      
+      <!-- Pattern 3 -->
+      <div class="pattern-card">
+        <span class="pattern-icon">🔄</span>
+        <h3 class="pattern-name">循环结局</h3>
+        <p class="pattern-desc">终点呼应起点，形成叙事闭环，强化宿命感或主题</p>
+        <span class="pattern-case">案例：《百年孤独》</span>
+      </div>
+      
+      <!-- Pattern 4 -->
+      <div class="pattern-card">
+        <span class="pattern-icon">🎭</span>
+        <h3 class="pattern-name">反转结局</h3>
+        <p class="pattern-desc">颠覆认知，重新解读前文，制造强烈情感冲击</p>
+        <span class="pattern-case">案例：《非常嫌疑犯》</span>
+      </div>
+      
+      <!-- Pattern 5 -->
+      <div class="pattern-card">
+        <span class="pattern-icon">✨</span>
+        <h3 class="pattern-name">升华结局</h3>
+        <p class="pattern-desc">从具体情节上升到普遍意义，引发深层共鸣</p>
+        <span class="pattern-case">案例：《琅琊榜》</span>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Section 4: 第三幕工程验收清单 -->
+  <section class="section fade-in delay-300">
+    <h2 class="section-title">第三幕工程验收清单</h2>
+    <p class="section-subtitle">逐项自检你的第三幕结构</p>
+    
+    <div class="checklist-categories">
+      <!-- Category A -->
+      <div class="checklist-category">
+        <div class="category-header">
+          <span class="category-badge">A</span>
+          <h3 class="category-title">高潮设计（75%-85%）</h3>
+        </div>
+        
+        <div class="checklist-item" data-checked="false">
+          <div class="checkbox-custom"></div>
+          <span class="checklist-text">技能调用检验：主角是否动用了所有核心技能？</span>
+        </div>
+        
+        <div class="checklist-item" data-checked="false">
+          <div class="checkbox-custom"></div>
+          <span class="checklist-text">恐惧直面检验：高潮是否让主角直面最深恐惧？</span>
+        </div>
+        
+        <div class="checklist-item" data-checked="false">
+          <div class="checkbox-custom"></div>
+          <span class="checklist-text">主题体现检验：主角的选择是否体现核心主题？</span>
+        </div>
+      </div>
+      
+      <!-- Category B -->
+      <div class="checklist-category">
+        <div class="category-header">
+          <span class="category-badge">B</span>
+          <h3 class="category-title">结局模式选择（85%-100%）</h3>
+        </div>
+        
+        <div class="checklist-item" data-checked="false">
+          <div class="checkbox-custom"></div>
+          <span class="checklist-text">模式适配：结局模式与故事调性一致？</span>
+        </div>
+        
+        <div class="checklist-item" data-checked="false">
+          <div class="checkbox-custom"></div>
+          <span class="checklist-text">内在冲突解决：展示了主角内在状态的最终改变？</span>
+        </div>
+        
+        <div class="checklist-item" data-checked="false">
+          <div class="checkbox-custom"></div>
+          <span class="checklist-text">新平衡建立：让读者看到主角在新世界中的位置？</span>
+        </div>
+      </div>
+      
+      <!-- Category C -->
+      <div class="checklist-category">
+        <div class="category-header">
+          <span class="category-badge">C</span>
+          <h3 class="category-title">情感缓冲带</h3>
+        </div>
+        
+        <div class="checklist-item" data-checked="false">
+          <div class="checkbox-custom"></div>
+          <span class="checklist-text">情绪释放：高潮后有足够篇幅让情绪平稳落地？</span>
+        </div>
+        
+        <div class="checklist-item" data-checked="false">
+          <div class="checkbox-custom"></div>
+          <span class="checklist-text">意义确认：通过角色反应让读者理解高潮意义？</span>
+        </div>
+        
+        <div class="checklist-item" data-checked="false">
+          <div class="checkbox-custom"></div>
+          <span class="checklist-text">主题回响：将具体情节升华为可回味的普遍意义？</span>
+        </div>
+      </div>
+    </div>
+    
+    <div id="checklist-result" class="checklist-result result-warning">
+      ⚠️ 你的第三幕存在结构性风险，需要针对性重写
+    </div>
+  </section>
+  
+  <!-- Section 5: CTA -->
+  <section class="section fade-in delay-400">
+    <div class="cta-section">
+      <h2 class="cta-title">这只是 10 期「故事工程师」系统课的第四课</h2>
+      <p class="cta-subtitle">加入付费社群，获取全部课程 + 专属答疑 + 创作诊断</p>
+      
+      <div class="roadmap">
+        <span class="lesson-dot done">1</span>
+        <span class="lesson-dot done">2</span>
+        <span class="lesson-dot done">3</span>
+        <span class="lesson-dot done">4</span>
+        <span class="lesson-dot upcoming">5</span>
+        <span class="lesson-dot upcoming">6</span>
+        <span class="lesson-dot upcoming">7</span>
+        <span class="lesson-dot upcoming">8</span>
+        <span class="lesson-dot upcoming">9</span>
+        <span class="lesson-dot upcoming">10</span>
+      </div>
+      
+      <a href="#" class="cta-button">加入社群</a>
+      
+      <div class="cta-author">
+        <strong>施施小洛</strong> · 类型小说出版人 · 十余年审稿经验
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="page-footer">
+    <p>© 2026 施施小洛 · ssxl.me</p>
+    <small>基于「故事工程师」系统课第四课内容制作</small>
+  </footer>
+  
+</main>
+
+<script>
+  // Checklist interactivity
+  const checklistItems = document.querySelectorAll('.checklist-item');
+  const resultBox = document.getElementById('checklist-result');
+  
+  const messages = {
+    low: '⚠️ 你的第三幕存在结构性风险，需要针对性重写',
+    medium: '📝 你的第三幕基本合格，但仍有优化空间',
+    high: '✅ 恭喜！你的第三幕结构完整'
+  };
+  
+  checklistItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const isChecked = item.getAttribute('data-checked') === 'true';
+      item.setAttribute('data-checked', (!isChecked).toString());
+      item.classList.toggle('checked', !isChecked);
+      updateResult();
+    });
+  });
+  
+  function updateResult() {
+    const checkedCount = Array.from(checklistItems).filter(
+      item => item.getAttribute('data-checked') === 'true'
+    ).length;
+    
+    resultBox.className = 'checklist-result';
+    
+    if (checkedCount < 6) {
+      resultBox.textContent = messages.low;
+      resultBox.classList.add('result-warning');
+    } else if (checkedCount < 9) {
+      resultBox.textContent = messages.medium;
+      resultBox.classList.add('result-ok');
+    } else {
+      resultBox.textContent = messages.high;
+      resultBox.classList.add('result-success');
+    }
+  }
+</script>
+</Layout>
